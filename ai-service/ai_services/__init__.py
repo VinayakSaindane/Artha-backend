@@ -6,6 +6,7 @@ from .emergency_detector import emergency_detector_service
 from .festival_intelligence import festival_intelligence_service
 from .whatsapp_parser import whatsapp_parser_service
 from .habit_score_engine import habit_score_service
+from .macro_risk_engine import macro_risk_engine_service
 
 __all__ = [
     "risk_radar_service",
@@ -16,4 +17,5 @@ __all__ = [
     "festival_intelligence_service",
     "whatsapp_parser_service",
     "habit_score_service",
+    "macro_risk_engine_service",
 ]

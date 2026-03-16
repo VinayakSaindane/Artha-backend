@@ -13,6 +13,7 @@ from ai_services import (
     scam_detector_service,
     scenario_engine_service,
     whatsapp_parser_service,
+    macro_risk_engine_service,
 )
 
 router = APIRouter(prefix="/ai", tags=["financial-intelligence"], dependencies=[Depends(validate_api_key)])
@@ -77,6 +78,18 @@ class WhatsappExpenseRequest(BaseModel):
     category_budget: float | None = 2500
 
 
+class MacroRiskAlertRequest(BaseModel):
+    user_id: str | None = None
+    user_profile: dict | None = None
+
+
+class MacroRiskSimulationRequest(BaseModel):
+    user_id: str | None = None
+    scenario: str = "war escalation"
+    horizon_months: int = 12
+    user_profile: dict | None = None
+
+
 @router.post("/risk-radar")
 async def risk_radar(payload: RiskRadarRequest) -> dict:
     return risk_radar_service.evaluate(payload.model_dump())
@@ -115,3 +128,19 @@ async def whatsapp_expense(payload: WhatsappExpenseRequest) -> dict:
 @router.get("/habit-score")
 async def habit_score(user_id: str = Query(..., min_length=1)) -> dict:
     return await habit_score_service.evaluate({"user_id": user_id})
+
+
+@router.get("/macro-risk-alert")
+async def macro_risk_alert(user_id: str | None = Query(default=None, min_length=1), force_refresh: bool = False) -> dict:
+    payload = {"user_id": user_id} if user_id else {}
+    return await macro_risk_engine_service.get_macro_risk_alert(payload=payload, force_refresh=force_refresh)
+
+
+@router.post("/macro-risk-alert")
+async def macro_risk_alert_post(payload: MacroRiskAlertRequest) -> dict:
+    return await macro_risk_engine_service.get_macro_risk_alert(payload=payload.model_dump())
+
+
+@router.post("/macro-risk-simulation")
+async def macro_risk_simulation(payload: MacroRiskSimulationRequest) -> dict:
+    return await macro_risk_engine_service.run_macro_risk_simulation(payload.model_dump())

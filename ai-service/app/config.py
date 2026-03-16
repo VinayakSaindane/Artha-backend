@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     ai_service_api_key: str = Field(default="artha-ai-internal-key", alias="AI_SERVICE_API_KEY")
     cache_ttl_seconds: int = Field(default=300, alias="CACHE_TTL_SECONDS")
     max_upload_mb: int = Field(default=5, alias="MAX_UPLOAD_MB")
+    news_api_key: str | None = Field(default=None, alias="NEWS_API_KEY")
+    alpha_vantage_api_key: str | None = Field(default=None, alias="ALPHA_VANTAGE_API_KEY")
 
 
 @lru_cache

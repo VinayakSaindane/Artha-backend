@@ -129,4 +129,35 @@ router.get('/habit-score', auth, async (req, res) => {
   }
 });
 
+router.get('/macro-risk-alert', auth, async (req, res) => {
+  try {
+    const response = await aiService.getMacroRiskAlert({
+      user_id: String(req.user._id),
+      force_refresh: req.query.force_refresh === 'true'
+    });
+    res.send(response);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+router.post('/macro-risk-simulation', auth, async (req, res) => {
+  try {
+    const payload = {
+      ...req.body,
+      user_id: String(req.user._id),
+      user_profile: {
+        ...(req.body.user_profile || {}),
+        income: req.body?.user_profile?.income || req.user.monthly_income || 50000,
+        loan_emi: req.body?.user_profile?.loan_emi || req.user.existing_emis || 0,
+      }
+    };
+
+    const response = await aiService.runMacroRiskSimulation(payload);
+    res.send(response);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
 module.exports = router;

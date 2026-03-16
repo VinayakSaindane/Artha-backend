@@ -176,6 +176,66 @@ const getMockResponse = (feature, data) => {
       streak_days: 11,
       badges: ["EMI Slayer", "Shield User", "Bharat Saver"],
       milestones: ["Financial discipline elite zone"]
+    },
+    macroAlert: {
+      event_detected: {
+        event: "Geopolitical Conflict",
+        confidence: 0.71,
+        severity: "High",
+        expected_impact_window_days: 10
+      },
+      macro_risk_index: {
+        score: 66,
+        risk_band: "High Risk",
+        formula: {
+          market_volatility: 72,
+          inflation_trend: 61,
+          geopolitical_risk: 75,
+          economic_sentiment: 48
+        }
+      },
+      macro_impact: {
+        stock_market_risk: "High",
+        inflation_risk: "Moderate",
+        employment_risk: "Moderate",
+        loan_rate_trend: "Increasing"
+      },
+      personal_financial_impact: {
+        portfolio_impact: "-12.0%",
+        monthly_expense_increase: "₹3500",
+        new_debt_ratio: "44%",
+        financial_risk_level: "Medium"
+      },
+      recommended_actions: [
+        "Increase emergency savings to 6 months",
+        "Reduce volatile equity exposure",
+        "Hold higher liquidity",
+        "Avoid taking new loans during high uncertainty"
+      ],
+      macro_risk_chart: [
+        { name: "Market Volatility", score: 72 },
+        { name: "Inflation Trend", score: 61 },
+        { name: "Geopolitical Risk", score: 75 },
+        { name: "Economic Sentiment", score: 48 }
+      ]
+    },
+    macroSimulation: {
+      scenario: "war escalation",
+      horizon_months: 12,
+      projection_formula: "Surplus(t) = Income(t) - EMI(t) - Expenses(t)",
+      chart_data: [
+        { month: 1, savings: 202000, net_worth: 510000, debt_ratio: 36, risk_level: "Moderate" },
+        { month: 3, savings: 196000, net_worth: 500500, debt_ratio: 38, risk_level: "Moderate" },
+        { month: 6, savings: 181500, net_worth: 479000, debt_ratio: 41, risk_level: "High" },
+        { month: 9, savings: 168000, net_worth: 455000, debt_ratio: 43, risk_level: "High" },
+        { month: 12, savings: 154500, net_worth: 434000, debt_ratio: 45, risk_level: "High" }
+      ],
+      summary: {
+        ending_savings: 154500,
+        ending_net_worth: 434000,
+        peak_debt_ratio: 45,
+        risk_level: "High"
+      }
     }
   };
   return mocks[feature] || {};
@@ -421,6 +481,26 @@ const getHabitScore = async (userId) => {
   }
 };
 
+const getMacroRiskAlert = async (data = {}) => {
+  try {
+    const response = await pythonClient.get('/ai/macro-risk-alert', {
+      params: {
+        user_id: data.user_id,
+        force_refresh: Boolean(data.force_refresh)
+      }
+    });
+    return response.data;
+  } catch (error) {
+    const reason = error?.response?.data || error.message;
+    console.warn('[AI] Python service fallback (macro alert):', reason);
+    return getMockResponse('macroAlert', data || {});
+  }
+};
+
+const runMacroRiskSimulation = async (data = {}) => {
+  return await callPythonAI('/ai/macro-risk-simulation', data, 'macroSimulation');
+};
+
 module.exports = {
   analyzeAgreement,
   predictLoan,
@@ -435,5 +515,7 @@ module.exports = {
   detectEmergency,
   analyzeFestivalIntelligence,
   parseWhatsappExpense,
-  getHabitScore
+  getHabitScore,
+  getMacroRiskAlert,
+  runMacroRiskSimulation
 };
