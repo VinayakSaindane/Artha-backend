@@ -12,6 +12,24 @@ const pythonClient = axios.create({
   }
 });
 
+const toNumber = (value, fallback = 0) => {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
+const calculateFutureValueWithSip = (currentSavings, monthlySip, years, annualReturn = 0.1) => {
+  const monthlyRate = annualReturn / 12;
+  const months = Math.max(1, Math.round(years * 12));
+  const savingsGrowth = currentSavings * Math.pow(1 + annualReturn, years);
+
+  if (monthlyRate <= 0) {
+    return savingsGrowth + monthlySip * months;
+  }
+
+  const sipGrowth = monthlySip * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+  return savingsGrowth + sipGrowth;
+};
+
 const getMockResponse = (feature, data) => {
   console.log(`[AI] Returning Smart Mock for ${feature}`);
   const mocks = {
@@ -175,8 +193,15 @@ const callPythonAI = async (endpoint, payload, feature) => {
   return getMockResponse(feature, payload || {});
 };
 
-const analyzeAgreement = async (text) => {
-  return await callPythonAI('/ai/analyze-agreement', { text: (text || '').substring(0, 10000) }, 'agreement');
+const analyzeAgreement = async (text, userContext = {}) => {
+  return await callPythonAI(
+    '/ai/analyze-agreement',
+    {
+      text: (text || '').substring(0, 10000),
+      user_context: userContext,
+    },
+    'agreement'
+  );
 };
 
 const predictLoan = async (data) => {
@@ -197,7 +222,70 @@ const analyzeDebtPulse = async (data) => {
 };
 
 const planGoals = async (data) => {
-  return getMockResponse('goals', data);
+  const age = toNumber(data.age, 28);
+  const retirementAge = Math.max(age + 1, toNumber(data.retirement_age, 55));
+  const yearsToRetirement = Math.max(1, retirementAge - age);
+  const income = toNumber(data.income, 50000);
+  const monthlyExpenses = Math.max(0, toNumber(data.monthly_expenses, income * 0.6));
+  const existingEmis = Math.max(0, toNumber(data.existing_emis, 0));
+  const goalCommitment = Math.max(0, toNumber(data.goal_commitment, 0));
+  const currentSavings = Math.max(0, toNumber(data.current_savings, income * 6));
+  const currentSip = Math.max(0, toNumber(data.monthly_sip, Math.max(0, income - monthlyExpenses - existingEmis - goalCommitment)));
+  const inflationRate = 0.06;
+  const expectedReturn = 0.1;
+  const annualExpenseNeed = Math.max(monthlyExpenses * 12, income * 12 * 0.45);
+  const retirementCorpusNeeded = Math.round(annualExpenseNeed * 25 * Math.pow(1 + inflationRate, yearsToRetirement));
+
+  const months = yearsToRetirement * 12;
+  const monthlyRate = expectedReturn / 12;
+  const futureCurrentSavings = currentSavings * Math.pow(1 + expectedReturn, yearsToRetirement);
+  let monthlySipNeeded = 0;
+
+  if (retirementCorpusNeeded > futureCurrentSavings) {
+    const shortfall = retirementCorpusNeeded - futureCurrentSavings;
+    monthlySipNeeded = Math.round((shortfall * monthlyRate) / (Math.pow(1 + monthlyRate, months) - 1));
+  }
+
+  const projectionAtDeadline = Math.round(calculateFutureValueWithSip(currentSavings, currentSip, yearsToRetirement, expectedReturn));
+  const requiredMonthlySavings = Math.max(monthlySipNeeded, goalCommitment);
+
+  const status = currentSip >= requiredMonthlySavings
+    ? 'On Track'
+    : currentSip >= requiredMonthlySavings * 0.75
+      ? 'Needs Small Increase'
+      : 'At Risk';
+
+  const yearByYearProjection = [];
+  for (let year = 0; year <= yearsToRetirement; year += 1) {
+    yearByYearProjection.push({
+      year: String(new Date().getFullYear() + year),
+      age: age + year,
+      corpus: Math.round(calculateFutureValueWithSip(currentSavings, currentSip, year, expectedReturn))
+    });
+  }
+
+  const recommendationGap = Math.max(0, requiredMonthlySavings - currentSip);
+
+  return {
+    status,
+    required_monthly_savings: requiredMonthlySavings,
+    projection_at_deadline: projectionAtDeadline,
+    retirement_corpus_needed: retirementCorpusNeeded,
+    monthly_sip_needed: monthlySipNeeded,
+    year_by_year_projection: yearByYearProjection,
+    investment_strategy: expectedReturn >= 0.1
+      ? 'Core equity index funds with debt rebalancing every year.'
+      : 'Balanced mutual funds with steady debt allocation.',
+    alternative_plans: recommendationGap > 0
+      ? [
+        `Increase monthly SIP by ₹${recommendationGap.toLocaleString('en-IN')} to stay on-track.`,
+        'Reduce monthly discretionary expenses by 10% and redirect to goal SIP.'
+      ]
+      : [
+        'Continue current SIP and review every quarter.',
+        'Top-up SIP by 5% annually to beat inflation comfortably.'
+      ]
+  };
 };
 
 const analyzeFestivalShield = async (data) => {
@@ -208,8 +296,86 @@ const analyzeFestivalShield = async (data) => {
     festival_date: data.date,
     date: data.date,
     income: data.income,
+    target_amount: data.target_amount,
+    expense_insights: data.expenseInsights,
+    past_expenses: data.pastExpenses,
   };
-  return await callPythonAI('/ai/festival-spending', payload, 'festival');
+
+  const aiResponse = await callPythonAI('/ai/festival-spending', payload, 'festival');
+
+  const averageMonthlySpend = toNumber(data?.expenseInsights?.average_monthly_spend, 0);
+  const festiveCategorySpend = toNumber(data?.expenseInsights?.festive_category_spend, 0);
+  const providedTarget = Math.max(0, toNumber(data.target_amount, 0));
+  const inferredTarget = Math.round((averageMonthlySpend * 0.35) + (festiveCategorySpend * 0.12));
+  const totalTarget = Math.max(1000, providedTarget || inferredTarget || 5000);
+  const income = Math.max(1, toNumber(data.income, 50000));
+
+  const today = new Date();
+  const festivalDate = new Date(data.date);
+  const msRemaining = festivalDate.getTime() - today.getTime();
+  const daysRemaining = Math.max(1, Math.ceil(msRemaining / (1000 * 60 * 60 * 24)));
+
+  const dailyTarget = Math.max(1, Math.round(totalTarget / daysRemaining));
+  const weeklyTarget = Math.round(dailyTarget * 7);
+  const spendToIncomeRatio = averageMonthlySpend / income;
+  const intensity = spendToIncomeRatio > 0.75 ? 'High' : spendToIncomeRatio > 0.5 ? 'Moderate' : 'Stable';
+
+  const categoryBreakdown = data?.expenseInsights?.category_breakdown || {};
+  const topCategories = Object.entries(categoryBreakdown)
+    .sort((a, b) => toNumber(b[1], 0) - toNumber(a[1], 0))
+    .slice(0, 3)
+    .map(([category]) => category);
+
+  const generatedTasks = [
+    {
+      title: `Auto-save ₹${dailyTarget} every day until ${festivalDate.toLocaleDateString('en-IN')}`,
+      cadence: 'daily',
+      amount: dailyTarget
+    },
+    {
+      title: `Set weekly checkpoint of ₹${weeklyTarget} and move surplus to festival wallet`,
+      cadence: 'weekly',
+      amount: weeklyTarget
+    },
+    {
+      title: `Cap spend in ${topCategories[0] || 'Food'} by 12% and redirect difference to festival savings`,
+      cadence: 'weekly',
+      amount: Math.round(totalTarget * 0.2)
+    }
+  ];
+
+  const dynamicResponse = {
+    detected_spike_pattern: `${intensity} spending pressure from your tracked expenses`,
+    estimated_extra_spending: totalTarget,
+    savings_plan: {
+      daily_target: dailyTarget,
+      days_remaining: daysRemaining,
+      total_target: totalTarget
+    },
+    actionable_tips: [
+      `Pause one low-priority spend from ${topCategories[0] || 'Food'} and save the amount daily.`,
+      `Keep festival purchases under ₹${Math.round(totalTarget * 0.65).toLocaleString('en-IN')} to avoid debt rollover.`,
+      `Track expenses every evening; your daily safe spend before festival is ₹${Math.max(0, Math.round((income - averageMonthlySpend) / 30)).toLocaleString('en-IN')}.`
+    ],
+    generated_tasks: generatedTasks,
+    debt_warning: `At current trend, festive spending can add pressure. Saving ₹${dailyTarget.toLocaleString('en-IN')}/day helps avoid post-festival debt.`
+  };
+
+  return {
+    ...aiResponse,
+    ...dynamicResponse,
+    // Keep AI narrative only as supplementary metadata, never as the source of truth
+    // for spend, savings targets, or detected pattern shown to the user.
+    ai_generated_pattern: aiResponse.detected_spike_pattern || null,
+    ai_generated_tips: Array.isArray(aiResponse.actionable_tips) ? aiResponse.actionable_tips : [],
+    ai_generated_warning: aiResponse.debt_warning || null,
+    estimated_extra_spending: dynamicResponse.estimated_extra_spending,
+    savings_plan: dynamicResponse.savings_plan,
+    actionable_tips: dynamicResponse.actionable_tips,
+    generated_tasks: dynamicResponse.generated_tasks,
+    debt_warning: dynamicResponse.debt_warning,
+    detected_spike_pattern: dynamicResponse.detected_spike_pattern
+  };
 };
 
 const analyzeFinanceStrategy = async (data) => {

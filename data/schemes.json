@@ -1,0 +1,1347 @@
+{
+  "version": "2026.03.16",
+  "lastUpdated": "2026-03-16",
+  "schemes": [
+    {
+      "id": "pmjdy",
+      "name": "PM Jan Dhan Yojana",
+      "nameMarathi": "प्रधानमंत्री जन धन योजना",
+      "nameHindi": "प्रधानमंत्री जन धन योजना",
+      "type": "central",
+      "state": "all",
+      "category": "banking",
+      "description": "A zero-balance savings account program that helps every household access formal banking. It also unlocks direct benefit transfer, RuPay card access, and basic insurance add-ons.",
+      "descriptionMarathi": "प्रत्येक कुटुंबाला औपचारिक बँकिंग मिळावे यासाठी शून्य शिल्लक बचत खाते योजना आहे. यामुळे थेट लाभ हस्तांतरण, रुपे कार्ड आणि मूलभूत विमा सुविधा मिळतात.",
+      "descriptionHindi": "हर परिवार को औपचारिक बैंकिंग से जोड़ने के लिए यह शून्य-बैलेंस बचत खाता योजना है। इससे डीबीटी, रुपे कार्ड और बेसिक बीमा सुविधाएं मिलती हैं।",
+      "benefits": [
+        "Zero-balance account with RuPay debit card",
+        "Direct benefit transfer and subsidy credits",
+        "Accident insurance cover linked to RuPay usage"
+      ],
+      "benefitsMarathi": [
+        "शून्य शिल्लक खातेसह रुपे डेबिट कार्ड",
+        "डीबीटी आणि अनुदान थेट खात्यात",
+        "रुपे वापराशी जोडलेले अपघात विमा संरक्षण"
+      ],
+      "benefitsHindi": [
+        "शून्य-बैलेंस खाते के साथ रुपे डेबिट कार्ड",
+        "डीबीटी और सब्सिडी सीधे खाते में",
+        "रुपे उपयोग से जुड़ा दुर्घटना बीमा कवर"
+      ],
+      "annualBenefitAmount": 2400,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmjdy_age",
+          "label": "Age between 10 and 65",
+          "labelMarathi": "वय 10 ते 65 वर्षे",
+          "labelHindi": "आयु 10 से 65 वर्ष",
+          "type": "age_range",
+          "params": { "min": 10, "max": 65 }
+        },
+        {
+          "criteriaId": "pmjdy_bank_soft",
+          "label": "Useful if no active bank account",
+          "labelMarathi": "सक्रिय बँक खाते नसल्यास अधिक उपयुक्त",
+          "labelHindi": "सक्रिय बैंक खाता न होने पर अधिक उपयोगी",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": false, "tip": "Open a PMJDY account at your nearest public sector bank branch." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "PAN (if available)", "Address proof", "Passport-size photo"],
+      "applicationProcess": "Visit a nearby bank branch or Bank Mitra point, fill PMJDY form, submit KYC, and activate account with RuPay card.",
+      "applyUrl": "https://pmjdy.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmsby",
+      "name": "PM Suraksha Bima Yojana",
+      "nameMarathi": "प्रधानमंत्री सुरक्षा विमा योजना",
+      "nameHindi": "प्रधानमंत्री सुरक्षा बीमा योजना",
+      "type": "central",
+      "state": "all",
+      "category": "insurance",
+      "description": "Affordable accident insurance for bank account holders. It provides Rs.2 lakh accidental death or disability cover at a very low annual premium.",
+      "descriptionMarathi": "बँक खातेधारकांसाठी स्वस्त अपघाती विमा योजना. अतिशय कमी वार्षिक प्रिमियममध्ये 2 लाख रुपयांपर्यंत अपघात कव्हर मिळते.",
+      "descriptionHindi": "बैंक खाता धारकों के लिए किफायती दुर्घटना बीमा योजना। बहुत कम वार्षिक प्रीमियम पर 2 लाख रुपये तक का कवर मिलता है।",
+      "benefits": [
+        "Rs.2,00,000 accidental death cover",
+        "Rs.2,00,000 full disability cover",
+        "Annual premium only Rs.20"
+      ],
+      "benefitsMarathi": [
+        "2,00,000 रुपयांचे अपघाती मृत्यू कव्हर",
+        "2,00,000 रुपयांचे पूर्ण अपंगत्व कव्हर",
+        "वार्षिक प्रिमियम फक्त 20 रुपये"
+      ],
+      "benefitsHindi": [
+        "2,00,000 रुपये का दुर्घटना मृत्यु कवर",
+        "2,00,000 रुपये का पूर्ण विकलांगता कवर",
+        "वार्षिक प्रीमियम केवल 20 रुपये"
+      ],
+      "annualBenefitAmount": 200000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmsby_age",
+          "label": "Age between 18 and 70",
+          "labelMarathi": "वय 18 ते 70 वर्षे",
+          "labelHindi": "आयु 18 से 70 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 70 }
+        },
+        {
+          "criteriaId": "pmsby_bank",
+          "label": "Has active bank account with auto-debit",
+          "labelMarathi": "ऑटो-डेबिटसह सक्रिय बँक खाते",
+          "labelHindi": "ऑटो-डेबिट के साथ सक्रिय बैंक खाता",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Open and activate a savings account to enroll in minutes." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Bank passbook", "Consent form for auto-debit"],
+      "applicationProcess": "Enroll through your bank branch, net banking, or mobile banking, and enable annual auto-debit before renewal date.",
+      "applyUrl": "https://jansuraksha.gov.in/",
+      "deadline": "2026-05-31",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmjjby",
+      "name": "PM Jeevan Jyoti Bima Yojana",
+      "nameMarathi": "प्रधानमंत्री जीवन ज्योती विमा योजना",
+      "nameHindi": "प्रधानमंत्री जीवन ज्योति बीमा योजना",
+      "type": "central",
+      "state": "all",
+      "category": "insurance",
+      "description": "A low-cost life insurance plan for bank account holders. It gives financial protection to families in case of the policyholder's death.",
+      "descriptionMarathi": "बँक खातेधारकांसाठी कमी खर्चातील जीवन विमा योजना. पॉलिसीधारकाच्या मृत्यूच्या वेळी कुटुंबाला आर्थिक सुरक्षा मिळते.",
+      "descriptionHindi": "बैंक खाता धारकों के लिए कम लागत वाली जीवन बीमा योजना। पॉलिसीधारक की मृत्यु पर परिवार को वित्तीय सुरक्षा मिलती है।",
+      "benefits": [
+        "Rs.2,00,000 life cover",
+        "Annual premium Rs.436",
+        "Simple annual renewal with auto-debit"
+      ],
+      "benefitsMarathi": [
+        "2,00,000 रुपयांचे जीवन कव्हर",
+        "वार्षिक प्रिमियम 436 रुपये",
+        "ऑटो-डेबिटसह सोपे वार्षिक नूतनीकरण"
+      ],
+      "benefitsHindi": [
+        "2,00,000 रुपये का जीवन कवर",
+        "वार्षिक प्रीमियम 436 रुपये",
+        "ऑटो-डेबिट से सरल वार्षिक नवीनीकरण"
+      ],
+      "annualBenefitAmount": 200000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmjjby_age",
+          "label": "Age between 18 and 50",
+          "labelMarathi": "वय 18 ते 50 वर्षे",
+          "labelHindi": "आयु 18 से 50 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 50 }
+        },
+        {
+          "criteriaId": "pmjjby_bank",
+          "label": "Has active bank account",
+          "labelMarathi": "सक्रिय बँक खाते आहे",
+          "labelHindi": "सक्रिय बैंक खाता है",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Keep balance in account before annual auto-debit date." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Bank account details", "Consent form"],
+      "applicationProcess": "Apply at bank branch or internet banking, complete consent and nominee details, and activate yearly premium auto-debit.",
+      "applyUrl": "https://jansuraksha.gov.in/",
+      "deadline": "2026-05-31",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "apy",
+      "name": "Atal Pension Yojana",
+      "nameMarathi": "अटल पेन्शन योजना",
+      "nameHindi": "अटल पेंशन योजना",
+      "type": "central",
+      "state": "all",
+      "category": "pension",
+      "description": "A contributory pension scheme for workers, especially in unorganized sectors. Subscribers receive guaranteed monthly pension after age 60.",
+      "descriptionMarathi": "विशेषतः असंघटित क्षेत्रातील कामगारांसाठी योगदानाधारित पेन्शन योजना. 60 वर्षांनंतर हमी मासिक पेन्शन मिळते.",
+      "descriptionHindi": "विशेषकर असंगठित क्षेत्र के कामगारों के लिए अंशदायी पेंशन योजना। 60 वर्ष के बाद निश्चित मासिक पेंशन मिलती है।",
+      "benefits": [
+        "Guaranteed pension of Rs.1,000 to Rs.5,000 per month",
+        "Long-term retirement protection",
+        "Auto-debit contribution model"
+      ],
+      "benefitsMarathi": [
+        "दरमहा 1,000 ते 5,000 रुपये हमी पेन्शन",
+        "दीर्घकालीन निवृत्ती संरक्षण",
+        "ऑटो-डेबिट योगदान पद्धत"
+      ],
+      "benefitsHindi": [
+        "प्रति माह 1,000 से 5,000 रुपये निश्चित पेंशन",
+        "दीर्घकालिक सेवानिवृत्ति सुरक्षा",
+        "ऑटो-डेबिट योगदान मॉडल"
+      ],
+      "annualBenefitAmount": 60000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "apy_age",
+          "label": "Age between 18 and 40",
+          "labelMarathi": "वय 18 ते 40 वर्षे",
+          "labelHindi": "आयु 18 से 40 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 40 }
+        },
+        {
+          "criteriaId": "apy_bank",
+          "label": "Active savings bank account",
+          "labelMarathi": "सक्रिय बचत बँक खाते",
+          "labelHindi": "सक्रिय बचत बैंक खाता",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Enable auto-debit mandate to avoid contribution gaps." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Bank details", "Mobile number"],
+      "applicationProcess": "Enroll through your bank or post office, choose target pension slab, submit mandate, and maintain monthly contribution.",
+      "applyUrl": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmay_urban",
+      "name": "PM Awas Yojana Urban",
+      "nameMarathi": "प्रधानमंत्री आवास योजना (शहरी)",
+      "nameHindi": "प्रधानमंत्री आवास योजना (शहरी)",
+      "type": "central",
+      "state": "all",
+      "category": "housing",
+      "description": "Supports first-time home buyers with home loan interest subsidy under CLSS categories. This reduces EMI burden and improves home affordability.",
+      "descriptionMarathi": "सीएलएसएस श्रेणी अंतर्गत प्रथमच घर घेणाऱ्यांना गृहकर्ज व्याज अनुदान मिळते. यामुळे ईएमआय कमी होऊन घर घेणे परवडते.",
+      "descriptionHindi": "सीएलएसएस श्रेणियों के तहत पहली बार घर खरीदने वालों को होम लोन ब्याज सब्सिडी मिलती है। इससे ईएमआई का बोझ कम होता है और घर खरीदना आसान बनता है।",
+      "benefits": [
+        "Interest subsidy up to Rs.2.67 lakh",
+        "Lower effective EMI",
+        "Supports EWS/LIG/MIG home buyers"
+      ],
+      "benefitsMarathi": [
+        "2.67 लाख रुपयांपर्यंत व्याज अनुदान",
+        "प्रभावी ईएमआय कमी",
+        "EWS/LIG/MIG घरखरेदीदारांना मदत"
+      ],
+      "benefitsHindi": [
+        "2.67 लाख रुपये तक ब्याज सब्सिडी",
+        "प्रभावी ईएमआई में कमी",
+        "EWS/LIG/MIG घर खरीदारों के लिए सहायता"
+      ],
+      "annualBenefitAmount": 89000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmay_income",
+          "label": "Annual income up to Rs.18 lakh (category dependent)",
+          "labelMarathi": "वार्षिक उत्पन्न 18 लाखांपर्यंत (श्रेणीनुसार)",
+          "labelHindi": "वार्षिक आय 18 लाख तक (श्रेणी अनुसार)",
+          "type": "income_max",
+          "params": { "max": 1800000 }
+        },
+        {
+          "criteriaId": "pmay_house",
+          "label": "Does not own pucca house",
+          "labelMarathi": "स्वतःचे पक्के घर नसणे",
+          "labelHindi": "स्वयं का पक्का घर नहीं होना",
+          "type": "house_status",
+          "params": { "ownsHouse": false }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Income proof", "Property documents", "Bank statements"],
+      "applicationProcess": "Apply via approved lending institution, submit CLSS eligibility documents, and track subsidy credit after loan sanction.",
+      "applyUrl": "https://pmaymis.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmmy",
+      "name": "PM Mudra Yojana",
+      "nameMarathi": "प्रधानमंत्री मुद्रा योजना",
+      "nameHindi": "प्रधानमंत्री मुद्रा योजना",
+      "type": "central",
+      "state": "all",
+      "category": "business",
+      "description": "Provides collateral-free loans for small businesses and self-employed individuals. The scheme supports startup and growth capital through Shishu, Kishor, and Tarun categories.",
+      "descriptionMarathi": "लघुउद्योग आणि स्वयंरोजगारासाठी तारणमुक्त कर्ज सुविधा देते. शिशु, किशोर आणि तरुण श्रेणीद्वारे व्यवसाय सुरू किंवा वाढवण्यासाठी भांडवल मिळते.",
+      "descriptionHindi": "छोटे व्यवसाय और स्व-रोजगार के लिए बिना गारंटी ऋण उपलब्ध कराती है। शिशु, किशोर और तरुण श्रेणियों के माध्यम से व्यवसाय शुरू या बढ़ाने के लिए पूंजी मिलती है।",
+      "benefits": [
+        "Collateral-free loans from Rs.50,000 to Rs.10 lakh",
+        "Supports micro business setup and expansion",
+        "Wide availability via banks and NBFC partners"
+      ],
+      "benefitsMarathi": [
+        "50,000 ते 10 लाख रुपयांपर्यंत तारणमुक्त कर्ज",
+        "सूक्ष्म व्यवसाय सुरू/वाढीसाठी मदत",
+        "बँका आणि NBFC मार्फत व्यापक उपलब्धता"
+      ],
+      "benefitsHindi": [
+        "50,000 से 10 लाख रुपये तक बिना गारंटी ऋण",
+        "सूक्ष्म व्यवसाय शुरू/विस्तार में सहायता",
+        "बैंकों और NBFC साझेदारों के माध्यम से उपलब्ध"
+      ],
+      "annualBenefitAmount": 45000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "mudra_occ",
+          "label": "Self-employed, small business, vendor, or entrepreneur",
+          "labelMarathi": "स्वयंरोजगार, लघुउद्योग, विक्रेता किंवा उद्योजक",
+          "labelHindi": "स्व-रोजगार, लघु व्यवसाय, विक्रेता या उद्यमी",
+          "type": "occupation",
+          "params": { "values": ["self-employed", "unemployed", "student", "farmer"] }
+        },
+        {
+          "criteriaId": "mudra_bank",
+          "label": "Bank account and basic business plan",
+          "labelMarathi": "बँक खाते आणि प्राथमिक व्यवसाय योजना",
+          "labelHindi": "बैंक खाता और बेसिक व्यवसाय योजना",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Prepare a one-page business plan and recent transaction proof." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "PAN", "Business proof", "Bank statement"],
+      "applicationProcess": "Approach scheduled bank or partner NBFC, submit Mudra form and business proposal, and complete branch verification.",
+      "applyUrl": "https://www.mudra.org.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "RBI/2015-16/330",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pm_kisan",
+      "name": "PM Kisan Samman Nidhi",
+      "nameMarathi": "पीएम किसान सन्मान निधी",
+      "nameHindi": "पीएम किसान सम्मान निधि",
+      "type": "central",
+      "state": "all",
+      "category": "farming",
+      "description": "Income support scheme for eligible farmer families. Direct cash transfer of Rs.6,000 is provided annually in three installments.",
+      "descriptionMarathi": "पात्र शेतकरी कुटुंबांसाठी उत्पन्न सहाय्य योजना. वर्षाला 6,000 रुपये थेट खात्यात तीन हप्त्यांत दिले जातात.",
+      "descriptionHindi": "पात्र किसान परिवारों के लिए आय सहायता योजना। सालाना 6,000 रुपये तीन किस्तों में सीधे खाते में भेजे जाते हैं।",
+      "benefits": [
+        "Rs.6,000 per year direct transfer",
+        "Three equal installments to bank account",
+        "Improves crop season cash flow"
+      ],
+      "benefitsMarathi": [
+        "वर्षाला 6,000 रुपये थेट हस्तांतरण",
+        "बँक खात्यात तीन समान हप्ते",
+        "पीक हंगामासाठी रोख प्रवाह सुधारतो"
+      ],
+      "benefitsHindi": [
+        "सालाना 6,000 रुपये का प्रत्यक्ष हस्तांतरण",
+        "बैंक खाते में तीन समान किस्तें",
+        "फसल सीजन के लिए नकदी प्रवाह बेहतर"
+      ],
+      "annualBenefitAmount": 6000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmkisan_occ",
+          "label": "Occupation is farmer",
+          "labelMarathi": "व्यवसाय शेतकरी",
+          "labelHindi": "पेशा किसान",
+          "type": "occupation",
+          "params": { "values": ["farmer"] }
+        },
+        {
+          "criteriaId": "pmkisan_bank",
+          "label": "Bank account linked with Aadhaar",
+          "labelMarathi": "आधारशी जोडलेले बँक खाते",
+          "labelHindi": "आधार से जुड़ा बैंक खाता",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Complete eKYC to avoid installment hold." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Land records", "Bank account", "Mobile number"],
+      "applicationProcess": "Register via PM-Kisan portal or CSC, complete eKYC and land verification, and track installment status online.",
+      "applyUrl": "https://pmkisan.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "nps",
+      "name": "National Pension System",
+      "nameMarathi": "राष्ट्रीय पेन्शन प्रणाली",
+      "nameHindi": "राष्ट्रीय पेंशन प्रणाली",
+      "type": "central",
+      "state": "all",
+      "category": "pension",
+      "description": "A long-term retirement investment product regulated by PFRDA. It offers tax benefits and market-linked growth over working years.",
+      "descriptionMarathi": "PFRDA नियमनाखालील दीर्घकालीन निवृत्ती गुंतवणूक साधन. कामकाजाच्या काळात कर सवलत आणि बाजाराशी निगडित वाढ मिळते.",
+      "descriptionHindi": "PFRDA द्वारा विनियमित दीर्घकालिक सेवानिवृत्ति निवेश साधन। कामकाजी वर्षों में कर लाभ और बाजार-आधारित वृद्धि मिलती है।",
+      "benefits": [
+        "Additional tax deduction of Rs.50,000 under 80CCD(1B)",
+        "Retirement corpus building with low cost",
+        "Choice of equity and debt mix"
+      ],
+      "benefitsMarathi": [
+        "80CCD(1B) अंतर्गत अतिरिक्त 50,000 कर कपात",
+        "कमी खर्चात निवृत्ती कोष निर्मिती",
+        "इक्विटी-डेट मिश्रणाची निवड"
+      ],
+      "benefitsHindi": [
+        "80CCD(1B) के तहत अतिरिक्त 50,000 की कर कटौती",
+        "कम लागत में रिटायरमेंट कॉर्पस निर्माण",
+        "इक्विटी और डेट मिश्रण का विकल्प"
+      ],
+      "annualBenefitAmount": 15000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "nps_age",
+          "label": "Age between 18 and 70",
+          "labelMarathi": "वय 18 ते 70 वर्षे",
+          "labelHindi": "आयु 18 से 70 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 70 }
+        },
+        {
+          "criteriaId": "nps_income",
+          "label": "Has taxable income",
+          "labelMarathi": "करपात्र उत्पन्न आहे",
+          "labelHindi": "कर योग्य आय है",
+          "type": "income_min",
+          "params": { "min": 200000 }
+        }
+      ],
+      "documentsRequired": ["PAN", "Aadhaar", "Bank details", "Photograph"],
+      "applicationProcess": "Open NPS account through eNPS portal or POP, complete KYC, choose fund options, and start yearly contributions.",
+      "applyUrl": "https://enps.nsdl.com/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "sukanya",
+      "name": "Sukanya Samriddhi Yojana",
+      "nameMarathi": "सुकन्या समृद्धी योजना",
+      "nameHindi": "सुकन्या समृद्धि योजना",
+      "type": "central",
+      "state": "all",
+      "category": "savings",
+      "description": "A high-interest small savings scheme for girl children with tax benefits. Parents can build a long-term corpus for education and marriage expenses.",
+      "descriptionMarathi": "मुलींसाठी उच्च व्याजदराची लघुबचत योजना आणि करसवलती. पालक शिक्षण व लग्नासाठी दीर्घकालीन निधी तयार करू शकतात.",
+      "descriptionHindi": "बालिका के लिए उच्च ब्याज दर वाली लघु बचत योजना, साथ में कर लाभ। माता-पिता शिक्षा और विवाह के लिए दीर्घकालिक फंड बना सकते हैं।",
+      "benefits": [
+        "Attractive interest rate around 8.2%",
+        "EEE tax treatment in many cases",
+        "Long-term disciplined savings for daughters"
+      ],
+      "benefitsMarathi": [
+        "सुमारे 8.2% आकर्षक व्याजदर",
+        "अनेक प्रकरणांत EEE कर लाभ",
+        "मुलींसाठी दीर्घकालीन शिस्तबद्ध बचत"
+      ],
+      "benefitsHindi": [
+        "लगभग 8.2% आकर्षक ब्याज दर",
+        "कई मामलों में EEE कर लाभ",
+        "बेटियों के लिए दीर्घकालिक अनुशासित बचत"
+      ],
+      "annualBenefitAmount": 18000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "sukanya_children",
+          "label": "Has at least one child",
+          "labelMarathi": "किमान एक मूल आहे",
+          "labelHindi": "कम से कम एक संतान है",
+          "type": "children",
+          "params": { "min": 1 }
+        },
+        {
+          "criteriaId": "sukanya_girl_soft",
+          "label": "At least one eligible girl child below 10 years",
+          "labelMarathi": "10 वर्षांखालील किमान एक पात्र मुलगी",
+          "labelHindi": "10 वर्ष से कम आयु की कम से कम एक पात्र बालिका",
+          "type": "soft_requirement",
+          "params": { "field": "hasGirlChildBelow10", "equals": true, "tip": "If you have a daughter under 10, open SSY at post office or bank." }
+        }
+      ],
+      "documentsRequired": ["Child birth certificate", "Parent Aadhaar", "Address proof", "Photographs"],
+      "applicationProcess": "Open account in post office or authorized bank, submit child and guardian documents, and start annual contributions.",
+      "applyUrl": "https://www.nsiindia.gov.in/(S(ie0zdn45zvyy2c55l3x0h455))/InternalPage.aspx?Id_Pk=89",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "tax_80d",
+      "name": "80D Health Insurance Deduction",
+      "nameMarathi": "80D आरोग्य विमा कर कपात",
+      "nameHindi": "80D स्वास्थ्य बीमा कर कटौती",
+      "type": "central",
+      "state": "all",
+      "category": "tax",
+      "description": "Tax deduction on health insurance premium for self, family, and parents under Income Tax Section 80D. It directly lowers taxable income for eligible taxpayers.",
+      "descriptionMarathi": "आयकर कलम 80D अंतर्गत स्वतः, कुटुंब आणि पालकांच्या आरोग्य विमा प्रिमियमवर कर कपात मिळते. यामुळे करपात्र उत्पन्न कमी होते.",
+      "descriptionHindi": "आयकर धारा 80D के तहत स्वयं, परिवार और माता-पिता के स्वास्थ्य बीमा प्रीमियम पर कर कटौती मिलती है। इससे कर योग्य आय कम होती है।",
+      "benefits": [
+        "Deduction up to Rs.1,00,000 depending on family structure",
+        "Encourages preventive health security",
+        "Can be combined with other deductions"
+      ],
+      "benefitsMarathi": [
+        "कुटुंब रचनेनुसार 1,00,000 पर्यंत कपात",
+        "प्रतिबंधात्मक आरोग्य सुरक्षा प्रोत्साहन",
+        "इतर कर कपातींसोबत वापरता येते"
+      ],
+      "benefitsHindi": [
+        "परिवार संरचना के अनुसार 1,00,000 तक कटौती",
+        "निवारक स्वास्थ्य सुरक्षा को बढ़ावा",
+        "अन्य कटौतियों के साथ उपयोग संभव"
+      ],
+      "annualBenefitAmount": 30000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "80d_income",
+          "label": "Has taxable income",
+          "labelMarathi": "करपात्र उत्पन्न आहे",
+          "labelHindi": "कर योग्य आय है",
+          "type": "income_min",
+          "params": { "min": 250000 }
+        },
+        {
+          "criteriaId": "80d_always",
+          "label": "Available to resident taxpayers with insurance premium",
+          "labelMarathi": "विमा प्रिमियम भरणाऱ्या रहिवासी करदात्यांसाठी उपलब्ध",
+          "labelHindi": "बीमा प्रीमियम देने वाले निवासी करदाताओं के लिए उपलब्ध",
+          "type": "always_eligible",
+          "params": {}
+        }
+      ],
+      "documentsRequired": ["Insurance premium receipts", "Policy copy", "PAN"],
+      "applicationProcess": "Buy or renew health insurance and claim eligible deduction while filing ITR using premium receipts.",
+      "applyUrl": "https://www.incometax.gov.in/",
+      "deadline": "2027-03-31",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "epfo",
+      "name": "EPFO Benefits",
+      "nameMarathi": "ईपीएफओ लाभ",
+      "nameHindi": "ईपीएफओ लाभ",
+      "type": "central",
+      "state": "all",
+      "category": "savings",
+      "description": "Employees in eligible establishments get EPF retirement savings with employer contribution. The corpus earns annual declared interest and enjoys tax efficiency in eligible conditions.",
+      "descriptionMarathi": "पात्र संस्थांतील कर्मचाऱ्यांना नियोक्ता योगदानासह ईपीएफ निवृत्ती बचत मिळते. घोषित व्याजदराने निधी वाढतो आणि करदृष्ट्या फायदेशीर ठरतो.",
+      "descriptionHindi": "पात्र संस्थानों के कर्मचारियों को नियोक्ता अंशदान के साथ ईपीएफ सेवानिवृत्ति बचत मिलती है। घोषित वार्षिक ब्याज और कर लाभ से कोष बढ़ता है।",
+      "benefits": [
+        "Employer contribution boosts retirement corpus",
+        "Annual EPF interest around 8.25%",
+        "Tax-efficient long-term compounding"
+      ],
+      "benefitsMarathi": [
+        "नियोक्ता योगदानामुळे निवृत्ती कोष वाढतो",
+        "वार्षिक ईपीएफ व्याज सुमारे 8.25%",
+        "कर-कार्यक्षम दीर्घकालीन चक्रवाढ"
+      ],
+      "benefitsHindi": [
+        "नियोक्ता अंशदान से रिटायरमेंट कोष बढ़ता है",
+        "वार्षिक ईपीएफ ब्याज लगभग 8.25%",
+        "कर-कुशल दीर्घकालिक चक्रवृद्धि"
+      ],
+      "annualBenefitAmount": 42000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "epfo_occ",
+          "label": "Occupation is salaried",
+          "labelMarathi": "व्यवसाय वेतनभोगी",
+          "labelHindi": "पेशा वेतनभोगी",
+          "type": "occupation",
+          "params": { "values": ["salaried"] }
+        },
+        {
+          "criteriaId": "epfo_age",
+          "label": "Working age 18 to 58",
+          "labelMarathi": "कामकाजाचे वय 18 ते 58",
+          "labelHindi": "कार्य आयु 18 से 58",
+          "type": "age_range",
+          "params": { "min": 18, "max": 58 }
+        }
+      ],
+      "documentsRequired": ["UAN", "Aadhaar", "PAN", "Employer details"],
+      "applicationProcess": "Confirm UAN activation and KYC in EPFO portal, verify employer deposits, and track passbook regularly.",
+      "applyUrl": "https://www.epfindia.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pm_sym",
+      "name": "PM Shram Yogi Maan-dhan",
+      "nameMarathi": "प्रधानमंत्री श्रमयोगी मानधन",
+      "nameHindi": "प्रधानमंत्री श्रम योगी मान-धन",
+      "type": "central",
+      "state": "all",
+      "category": "pension",
+      "description": "A pension scheme for unorganized workers with monthly contribution and government co-contribution. Subscribers receive Rs.3,000 monthly pension after 60.",
+      "descriptionMarathi": "असंघटित क्षेत्रातील कामगारांसाठी मासिक योगदान आणि सरकारी समभाग असलेली पेन्शन योजना. 60 वर्षांनंतर 3,000 रुपये मासिक पेन्शन मिळते.",
+      "descriptionHindi": "असंगठित श्रमिकों के लिए मासिक अंशदान और सरकारी सह-अंशदान वाली पेंशन योजना। 60 वर्ष के बाद 3,000 रुपये मासिक पेंशन मिलती है।",
+      "benefits": [
+        "Rs.3,000 monthly pension after 60",
+        "Government co-contribution",
+        "Social security for informal workers"
+      ],
+      "benefitsMarathi": [
+        "60 नंतर दरमहा 3,000 रुपये पेन्शन",
+        "सरकारी समभाग योगदान",
+        "असंघटित कामगारांसाठी सामाजिक सुरक्षा"
+      ],
+      "benefitsHindi": [
+        "60 के बाद 3,000 रुपये मासिक पेंशन",
+        "सरकारी सह-अंशदान",
+        "असंगठित कामगारों के लिए सामाजिक सुरक्षा"
+      ],
+      "annualBenefitAmount": 36000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmsym_age",
+          "label": "Age between 18 and 40",
+          "labelMarathi": "वय 18 ते 40 वर्षे",
+          "labelHindi": "आयु 18 से 40 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 40 }
+        },
+        {
+          "criteriaId": "pmsym_income",
+          "label": "Monthly income up to Rs.15,000",
+          "labelMarathi": "मासिक उत्पन्न 15,000 पर्यंत",
+          "labelHindi": "मासिक आय 15,000 तक",
+          "type": "income_max",
+          "params": { "max": 180000 }
+        },
+        {
+          "criteriaId": "pmsym_occ",
+          "label": "Unorganized sector worker",
+          "labelMarathi": "असंघटित क्षेत्रातील कामगार",
+          "labelHindi": "असंगठित क्षेत्र का श्रमिक",
+          "type": "occupation",
+          "params": { "values": ["self-employed", "farmer", "unemployed"] }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Savings bank account", "Mobile number"],
+      "applicationProcess": "Visit CSC center or enroll online, choose contribution slab by age, and maintain monthly contribution.",
+      "applyUrl": "https://maandhan.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "standup_india",
+      "name": "Stand-Up India Scheme",
+      "nameMarathi": "स्टँड-अप इंडिया योजना",
+      "nameHindi": "स्टैंड-अप इंडिया योजना",
+      "type": "central",
+      "state": "all",
+      "category": "business",
+      "description": "Supports SC/ST and women entrepreneurs with bank loans for greenfield enterprises. It helps with enterprise setup in manufacturing, services, or trading.",
+      "descriptionMarathi": "SC/ST आणि महिला उद्योजकांसाठी ग्रीनफिल्ड उद्योगांसाठी बँक कर्ज सहाय्य. उत्पादन, सेवा किंवा व्यापार क्षेत्रात नवीन उपक्रम सुरू करण्यास मदत करते.",
+      "descriptionHindi": "SC/ST और महिला उद्यमियों को ग्रीनफील्ड उद्यम के लिए बैंक ऋण सहायता। विनिर्माण, सेवा या व्यापार में नया उद्यम शुरू करने में मदद मिलती है।",
+      "benefits": [
+        "Loans from Rs.10 lakh to Rs.1 crore",
+        "Supports first-time enterprise setup",
+        "Credit plus handholding support"
+      ],
+      "benefitsMarathi": [
+        "10 लाख ते 1 कोटीपर्यंत कर्ज",
+        "पहिल्यांदाच उद्योग सुरू करणाऱ्यांना मदत",
+        "कर्जासोबत मार्गदर्शन सुविधा"
+      ],
+      "benefitsHindi": [
+        "10 लाख से 1 करोड़ तक ऋण",
+        "पहली बार उद्यम शुरू करने में सहायता",
+        "ऋण के साथ हैंडहोल्डिंग समर्थन"
+      ],
+      "annualBenefitAmount": 85000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "standup_gender_caste",
+          "label": "Applicant is woman or belongs to SC/ST",
+          "labelMarathi": "अर्जदार महिला किंवा SC/ST प्रवर्गातील",
+          "labelHindi": "आवेदक महिला या SC/ST वर्ग से",
+          "type": "soft_requirement",
+          "params": { "custom": "gender_or_caste", "tip": "Women applicants and SC/ST entrepreneurs get priority access." }
+        },
+        {
+          "criteriaId": "standup_age",
+          "label": "Age 18+",
+          "labelMarathi": "वय 18+",
+          "labelHindi": "आयु 18+",
+          "type": "age_range",
+          "params": { "min": 18, "max": 75 }
+        }
+      ],
+      "documentsRequired": ["Identity proof", "Caste certificate (if applicable)", "Business plan", "Bank statement"],
+      "applicationProcess": "Apply through Stand-Up India portal, choose lender branch, submit business details, and complete appraisal.",
+      "applyUrl": "https://www.standupmitra.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pm_jay",
+      "name": "Ayushman Bharat PM-JAY",
+      "nameMarathi": "आयुष्मान भारत पीएम-जेएवाय",
+      "nameHindi": "आयुष्मान भारत पीएम-जेएवाई",
+      "type": "central",
+      "state": "all",
+      "category": "health",
+      "description": "Publicly funded health assurance scheme for poor and vulnerable families. It offers cashless treatment at empaneled hospitals.",
+      "descriptionMarathi": "गरिब आणि वंचित कुटुंबांसाठी शासकीय आरोग्य संरक्षण योजना. सूचीबद्ध रुग्णालयांमध्ये कॅशलेस उपचार मिळतात.",
+      "descriptionHindi": "गरीब और कमजोर परिवारों के लिए सरकारी स्वास्थ्य आश्वासन योजना। सूचीबद्ध अस्पतालों में कैशलेस इलाज उपलब्ध है।",
+      "benefits": [
+        "Up to Rs.5 lakh family health cover per year",
+        "Cashless hospitalization in empaneled hospitals",
+        "Wide treatment package coverage"
+      ],
+      "benefitsMarathi": [
+        "कुटुंबासाठी वर्षाला 5 लाखांपर्यंत आरोग्य कव्हर",
+        "सूचीबद्ध रुग्णालयांमध्ये कॅशलेस भरती",
+        "विस्तृत उपचार पॅकेज कव्हरेज"
+      ],
+      "benefitsHindi": [
+        "परिवार के लिए सालाना 5 लाख तक स्वास्थ्य कवर",
+        "सूचीबद्ध अस्पतालों में कैशलेस भर्ती",
+        "विस्तृत उपचार पैकेज कवरेज"
+      ],
+      "annualBenefitAmount": 500000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmjay_income",
+          "label": "Low-income/vulnerable family category",
+          "labelMarathi": "कमी उत्पन्न/असुरक्षित कुटुंब श्रेणी",
+          "labelHindi": "कम आय/वंचित परिवार श्रेणी",
+          "type": "income_max",
+          "params": { "max": 300000 }
+        },
+        {
+          "criteriaId": "pmjay_state",
+          "label": "State implements PM-JAY package",
+          "labelMarathi": "राज्यात पीएम-जेएवाय अंमलबजावणी",
+          "labelHindi": "राज्य में पीएम-जेएवाई लागू",
+          "type": "always_eligible",
+          "params": {}
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Ration card", "SECC eligibility proof"],
+      "applicationProcess": "Check eligibility on PM-JAY portal, generate e-card, and use card for cashless treatment at listed hospitals.",
+      "applyUrl": "https://pmjay.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pm_svanidhi",
+      "name": "PM SVANidhi",
+      "nameMarathi": "पीएम स्वनिधी योजना",
+      "nameHindi": "पीएम स्वनिधि योजना",
+      "type": "central",
+      "state": "all",
+      "category": "business",
+      "description": "Working capital loan support for street vendors to restart and scale business. Timely repayment unlocks higher loan tranches and interest subsidy.",
+      "descriptionMarathi": "रस्त्यावरच्या विक्रेत्यांसाठी व्यवसाय सुरू/वाढीसाठी कार्यकारी भांडवल कर्ज. वेळेवर परतफेड केल्यास जास्त कर्ज मर्यादा व व्याज अनुदान मिळते.",
+      "descriptionHindi": "स्ट्रीट वेंडरों के लिए व्यवसाय पुनः शुरू और बढ़ाने हेतु कार्यशील पूंजी ऋण। समय पर चुकौती पर उच्च ऋण सीमा और ब्याज सब्सिडी मिलती है।",
+      "benefits": [
+        "Initial working capital loan up to Rs.10,000",
+        "Interest subsidy on timely repayment",
+        "Higher second and third tranche eligibility"
+      ],
+      "benefitsMarathi": [
+        "प्रारंभी 10,000 पर्यंत कार्यकारी भांडवल कर्ज",
+        "वेळेवर परतफेडीवर व्याज अनुदान",
+        "दुसरी/तिसरी जास्त कर्ज मर्यादा"
+      ],
+      "benefitsHindi": [
+        "प्रारंभिक कार्यशील पूंजी ऋण 10,000 तक",
+        "समय पर चुकौती पर ब्याज सब्सिडी",
+        "दूसरी/तीसरी उच्च ऋण किश्त पात्रता"
+      ],
+      "annualBenefitAmount": 12000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "svanidhi_occ",
+          "label": "Occupation includes street vending or micro self-employment",
+          "labelMarathi": "व्यवसायात स्ट्रीट व्हेंडिंग किंवा सूक्ष्म स्वयंरोजगार",
+          "labelHindi": "पेशा स्ट्रीट वेंडिंग या सूक्ष्म स्व-रोजगार",
+          "type": "occupation",
+          "params": { "values": ["self-employed", "unemployed"] }
+        },
+        {
+          "criteriaId": "svanidhi_bank",
+          "label": "Has bank account",
+          "labelMarathi": "बँक खाते आहे",
+          "labelHindi": "बैंक खाता है",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Open account and keep transaction proof for quicker processing." }
+        }
+      ],
+      "documentsRequired": ["Vendor certificate/ID", "Aadhaar", "Bank details"],
+      "applicationProcess": "Apply via urban local body portal or CSC, verify vending status, and receive loan through partner bank.",
+      "applyUrl": "https://pmsvanidhi.mohua.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "kcc",
+      "name": "Kisan Credit Card",
+      "nameMarathi": "किसान क्रेडिट कार्ड",
+      "nameHindi": "किसान क्रेडिट कार्ड",
+      "type": "central",
+      "state": "all",
+      "category": "farming",
+      "description": "Short-term credit line for farmers to meet crop cultivation and allied activity expenses. It offers subsidized interest and flexible drawdown.",
+      "descriptionMarathi": "शेतकऱ्यांना पीक लागवड आणि पूरक खर्चासाठी अल्पकालीन कर्ज मर्यादा. अनुदानित व्याजदर आणि लवचिक पैसे काढण्याची सुविधा उपलब्ध.",
+      "descriptionHindi": "किसानों को फसल और संबद्ध गतिविधियों के खर्च के लिए अल्पकालिक ऋण सीमा। इसमें रियायती ब्याज और लचीली निकासी सुविधा मिलती है।",
+      "benefits": [
+        "Subsidized crop credit",
+        "Working capital for farm operations",
+        "Interest subvention on timely repayment"
+      ],
+      "benefitsMarathi": [
+        "अनुदानित पीक कर्ज",
+        "शेती कामांसाठी कार्यकारी भांडवल",
+        "वेळेवर परतफेडीवर व्याज सवलत"
+      ],
+      "benefitsHindi": [
+        "रियायती फसल ऋण",
+        "खेती कार्यों के लिए कार्यशील पूंजी",
+        "समय पर चुकौती पर ब्याज रियायत"
+      ],
+      "annualBenefitAmount": 25000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "kcc_occ",
+          "label": "Occupation is farmer",
+          "labelMarathi": "व्यवसाय शेतकरी",
+          "labelHindi": "पेशा किसान",
+          "type": "occupation",
+          "params": { "values": ["farmer"] }
+        },
+        {
+          "criteriaId": "kcc_bank",
+          "label": "Has bank account",
+          "labelMarathi": "बँक खाते आहे",
+          "labelHindi": "बैंक खाता है",
+          "type": "soft_requirement",
+          "params": { "field": "hasBankAccount", "equals": true, "tip": "Maintain recent land and crop records to speed sanction." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Land records", "Bank passbook", "Passport-size photo"],
+      "applicationProcess": "Apply at agriculture branch of bank with land/crop details, complete verification, and receive KCC limit.",
+      "applyUrl": "https://www.myscheme.gov.in/schemes/kcc",
+      "deadline": "rolling",
+      "rbiCircularRef": "RBI/2018-19/32",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmfby",
+      "name": "Pradhan Mantri Fasal Bima Yojana",
+      "nameMarathi": "प्रधानमंत्री फसल विमा योजना",
+      "nameHindi": "प्रधानमंत्री फसल बीमा योजना",
+      "type": "central",
+      "state": "all",
+      "category": "farming",
+      "description": "Crop insurance for farmers against yield loss due to natural calamities and adverse weather. It protects income stability during bad crop seasons.",
+      "descriptionMarathi": "नैसर्गिक आपत्ती आणि प्रतिकूल हवामानामुळे होणाऱ्या उत्पादन नुकसानीसाठी पीक विमा. खराब हंगामात उत्पन्न स्थिर ठेवण्यास मदत होते.",
+      "descriptionHindi": "प्राकृतिक आपदा और प्रतिकूल मौसम से फसल नुकसान पर किसानों को बीमा सुरक्षा। खराब मौसम में आय स्थिर रखने में मदद मिलती है।",
+      "benefits": [
+        "Low premium crop insurance",
+        "Coverage against multiple crop risks",
+        "Stabilizes annual farm income"
+      ],
+      "benefitsMarathi": [
+        "कमी प्रिमियमवर पीक विमा",
+        "अनेक पीक जोखीमांवर संरक्षण",
+        "वार्षिक शेती उत्पन्न स्थिरता"
+      ],
+      "benefitsHindi": [
+        "कम प्रीमियम पर फसल बीमा",
+        "कई फसल जोखिमों पर सुरक्षा",
+        "वार्षिक कृषि आय में स्थिरता"
+      ],
+      "annualBenefitAmount": 30000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmfby_farmer",
+          "label": "Occupation is farmer",
+          "labelMarathi": "व्यवसाय शेतकरी",
+          "labelHindi": "पेशा किसान",
+          "type": "occupation",
+          "params": { "values": ["farmer"] }
+        },
+        {
+          "criteriaId": "pmfby_state",
+          "label": "State/season notification active",
+          "labelMarathi": "राज्य/हंगाम अधिसूचना सक्रिय",
+          "labelHindi": "राज्य/मौसम अधिसूचना सक्रिय",
+          "type": "always_eligible",
+          "params": {}
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Land/crop sowing proof", "Bank account"],
+      "applicationProcess": "Enroll through bank, insurance portal, or CSC before cut-off date for notified crops and seasons.",
+      "applyUrl": "https://pmfby.gov.in/",
+      "deadline": "2026-07-15",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "pmkvy",
+      "name": "Skill India PMKVY",
+      "nameMarathi": "स्किल इंडिया पीएमकेव्हीवाय",
+      "nameHindi": "स्किल इंडिया पीएमकेवीवाई",
+      "type": "central",
+      "state": "all",
+      "category": "skill",
+      "description": "Free short-term skill training and certification aligned with job roles. It helps youth improve employability and income prospects.",
+      "descriptionMarathi": "नोकरी भूमिकांनुसार मोफत अल्पकालीन कौशल्य प्रशिक्षण आणि प्रमाणपत्र. तरुणांना रोजगारक्षमता आणि उत्पन्न वाढीस मदत होते.",
+      "descriptionHindi": "जॉब रोल के अनुसार मुफ्त अल्पकालिक कौशल प्रशिक्षण और प्रमाणन। युवाओं की रोजगार क्षमता और आय संभावनाएं बढ़ती हैं।",
+      "benefits": [
+        "Free skill training in high-demand sectors",
+        "Government-recognized certification",
+        "Placement assistance in many centers"
+      ],
+      "benefitsMarathi": [
+        "उच्च मागणी क्षेत्रात मोफत कौशल्य प्रशिक्षण",
+        "शासकीय मान्यताप्राप्त प्रमाणपत्र",
+        "अनेक केंद्रांत प्लेसमेंट सहाय्य"
+      ],
+      "benefitsHindi": [
+        "उच्च मांग वाले क्षेत्रों में मुफ्त कौशल प्रशिक्षण",
+        "सरकारी मान्यता प्राप्त प्रमाणपत्र",
+        "कई केंद्रों में प्लेसमेंट सहायता"
+      ],
+      "annualBenefitAmount": 18000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "pmkvy_age",
+          "label": "Age between 18 and 45",
+          "labelMarathi": "वय 18 ते 45 वर्षे",
+          "labelHindi": "आयु 18 से 45 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 45 }
+        },
+        {
+          "criteriaId": "pmkvy_occ",
+          "label": "Student/unemployed/self-employed can apply",
+          "labelMarathi": "विद्यार्थी/बेरोजगार/स्वयंरोजगार अर्ज करू शकतात",
+          "labelHindi": "छात्र/बेरोजगार/स्व-रोजगार आवेदन कर सकते हैं",
+          "type": "occupation",
+          "params": { "values": ["student", "unemployed", "self-employed", "salaried", "farmer"] }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Educational qualification", "Bank details"],
+      "applicationProcess": "Register on Skill India portal, choose training center and job role, complete assessment, and receive certification.",
+      "applyUrl": "https://www.skillindia.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+
+    {
+      "id": "mahaswayam",
+      "name": "Mahaswayam Skill Training",
+      "nameMarathi": "महास्वयंम कौशल्य प्रशिक्षण",
+      "nameHindi": "महास्वयंम कौशल प्रशिक्षण",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "skill",
+      "description": "Maharashtra's integrated platform for skilling, apprenticeship, and employment opportunities. Youth can access free training in multiple trades.",
+      "descriptionMarathi": "महाराष्ट्रातील कौशल्य, अप्रेंटिसशिप आणि रोजगारासाठी एकात्मिक व्यासपीठ. तरुणांना अनेक ट्रेडमध्ये मोफत प्रशिक्षण मिळते.",
+      "descriptionHindi": "महाराष्ट्र का कौशल, अप्रेंटिसशिप और रोजगार के लिए एकीकृत प्लेटफॉर्म। युवाओं को कई ट्रेड में मुफ्त प्रशिक्षण मिलता है।",
+      "benefits": [
+        "Free skill training in 50+ trades",
+        "Employment exchange integration",
+        "Better placement visibility"
+      ],
+      "benefitsMarathi": [
+        "50+ ट्रेडमध्ये मोफत प्रशिक्षण",
+        "रोजगार नोंदणीशी एकत्रीकरण",
+        "नोकरी संधींची अधिक दृश्यमानता"
+      ],
+      "benefitsHindi": [
+        "50+ ट्रेड में मुफ्त प्रशिक्षण",
+        "रोजगार एक्सचेंज एकीकरण",
+        "रोजगार अवसरों की बेहतर दृश्यता"
+      ],
+      "annualBenefitAmount": 22000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "mahaswayam_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्र राज्यातील रहिवासी",
+          "labelHindi": "महाराष्ट्र का निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "mahaswayam_age",
+          "label": "Age between 18 and 45",
+          "labelMarathi": "वय 18 ते 45 वर्षे",
+          "labelHindi": "आयु 18 से 45 वर्ष",
+          "type": "age_range",
+          "params": { "min": 18, "max": 45 }
+        }
+      ],
+      "documentsRequired": ["Domicile certificate", "Aadhaar", "Educational documents"],
+      "applicationProcess": "Register at Mahaswayam portal, choose sector and training provider, attend program, and track placement support.",
+      "applyUrl": "https://www.mahaswayam.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "ladki_bahin",
+      "name": "Mukhyamantri Majhi Ladki Bahin Yojana",
+      "nameMarathi": "मुख्यमंत्री माझी लाडकी बहीण योजना",
+      "nameHindi": "मुख्यमंत्री माझी लाडकी बहिण योजना",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "women",
+      "description": "Direct monthly assistance for eligible women beneficiaries in Maharashtra. It improves household liquidity and supports basic needs.",
+      "descriptionMarathi": "महाराष्ट्रातील पात्र महिलांना मासिक थेट आर्थिक मदत. घरगुती रोख प्रवाह सुधारतो आणि मूलभूत गरजा पूर्ण होतात.",
+      "descriptionHindi": "महाराष्ट्र की पात्र महिलाओं के लिए मासिक प्रत्यक्ष वित्तीय सहायता। इससे घरेलू नकदी प्रवाह सुधरता है और मूलभूत जरूरतें पूरी होती हैं।",
+      "benefits": [
+        "Rs.1,500 per month support",
+        "Direct transfer to beneficiary account",
+        "Improves monthly household cash flow"
+      ],
+      "benefitsMarathi": [
+        "दरमहा 1,500 रुपयांची मदत",
+        "लाभार्थीच्या खात्यात थेट हस्तांतरण",
+        "घरगुती मासिक रोख प्रवाह सुधारणा"
+      ],
+      "benefitsHindi": [
+        "प्रति माह 1,500 रुपये सहायता",
+        "लाभार्थी खाते में प्रत्यक्ष हस्तांतरण",
+        "घरेलू मासिक नकदी प्रवाह में सुधार"
+      ],
+      "annualBenefitAmount": 18000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "ladki_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी",
+          "labelHindi": "महाराष्ट्र की निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "ladki_gender",
+          "label": "Gender is female",
+          "labelMarathi": "लिंग महिला",
+          "labelHindi": "लिंग महिला",
+          "type": "gender",
+          "params": { "value": "female" }
+        },
+        {
+          "criteriaId": "ladki_income",
+          "label": "Annual income up to Rs.2.5 lakh",
+          "labelMarathi": "वार्षिक उत्पन्न 2.5 लाखांपर्यंत",
+          "labelHindi": "वार्षिक आय 2.5 लाख तक",
+          "type": "income_max",
+          "params": { "max": 250000 }
+        },
+        {
+          "criteriaId": "ladki_age",
+          "label": "Age between 21 and 65",
+          "labelMarathi": "वय 21 ते 65 वर्षे",
+          "labelHindi": "आयु 21 से 65 वर्ष",
+          "type": "age_range",
+          "params": { "min": 21, "max": 65 }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Domicile", "Income certificate", "Bank passbook"],
+      "applicationProcess": "Apply through state portal or authorized centers, submit women-beneficiary proofs, and complete local verification.",
+      "applyUrl": "https://ladakibahin.maharashtra.gov.in/",
+      "deadline": "2026-12-31",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "mhada_lottery",
+      "name": "MHADA Lottery Housing",
+      "nameMarathi": "म्हाडा लॉटरी गृहनिर्माण",
+      "nameHindi": "म्हाडा लॉटरी आवास",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "housing",
+      "description": "Affordable housing allocation through lottery for eligible income groups in Maharashtra cities. It supports first-home ownership at lower price points.",
+      "descriptionMarathi": "महाराष्ट्रातील शहरांमध्ये पात्र उत्पन्न गटांसाठी परवडणारे घर लॉटरीद्वारे उपलब्ध. कमी किमतीत पहिले घर घेण्यास मदत होते.",
+      "descriptionHindi": "महाराष्ट्र शहरों में पात्र आय वर्गों के लिए लॉटरी द्वारा किफायती आवास उपलब्ध। कम कीमत पर पहला घर खरीदने में मदद मिलती है।",
+      "benefits": [
+        "Subsidized housing cost",
+        "Access to urban housing inventory",
+        "Supports first-time home buyers"
+      ],
+      "benefitsMarathi": [
+        "अनुदानित घराची किंमत",
+        "शहरी गृहनिर्माण उपलब्धता",
+        "पहिल्यांदा घर घेणाऱ्यांना मदत"
+      ],
+      "benefitsHindi": [
+        "रियायती आवास लागत",
+        "शहरी आवास उपलब्धता",
+        "पहली बार घर खरीदने वालों को सहायता"
+      ],
+      "annualBenefitAmount": 120000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "mhada_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी",
+          "labelHindi": "महाराष्ट्र का निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "mhada_house",
+          "label": "Does not own house in target urban region",
+          "labelMarathi": "लक्ष्यित शहरी भागात स्वतःचे घर नसणे",
+          "labelHindi": "लक्षित शहरी क्षेत्र में स्वयं का घर न होना",
+          "type": "house_status",
+          "params": { "ownsHouse": false }
+        },
+        {
+          "criteriaId": "mhada_income",
+          "label": "Income within announced category slabs",
+          "labelMarathi": "जाहीर श्रेणीच्या उत्पन्न मर्यादेत",
+          "labelHindi": "घोषित श्रेणी आय सीमा के भीतर",
+          "type": "income_max",
+          "params": { "max": 2500000 }
+        }
+      ],
+      "documentsRequired": ["Domicile", "PAN", "Income proof", "Address proof"],
+      "applicationProcess": "Register in MHADA lottery portal, select scheme, upload documents, pay application fee, and track draw result.",
+      "applyUrl": "https://housing.mhada.gov.in/",
+      "deadline": "2026-09-30",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "mjpjy",
+      "name": "Mahatma Phule Jan Arogya Yojana",
+      "nameMarathi": "महत्मा फुले जनआरोग्य योजना",
+      "nameHindi": "महत्मा फुले जन आरोग्य योजना",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "health",
+      "description": "Maharashtra state health protection scheme for eligible families. It provides cashless treatment for listed procedures across empaneled hospitals.",
+      "descriptionMarathi": "पात्र कुटुंबांसाठी महाराष्ट्राची राज्य आरोग्य संरक्षण योजना. सूचीबद्ध रुग्णालयांमध्ये निर्दिष्ट उपचारांसाठी कॅशलेस सुविधा मिळते.",
+      "descriptionHindi": "पात्र परिवारों के लिए महाराष्ट्र की राज्य स्वास्थ्य सुरक्षा योजना। सूचीबद्ध अस्पतालों में निर्दिष्ट उपचार पर कैशलेस सुविधा मिलती है।",
+      "benefits": [
+        "Up to Rs.1.5 lakh treatment cover",
+        "Cashless hospitalization in empaneled network",
+        "Financial protection from major health shocks"
+      ],
+      "benefitsMarathi": [
+        "1.5 लाखांपर्यंत उपचार कव्हर",
+        "सूचीबद्ध नेटवर्कमध्ये कॅशलेस भरती",
+        "मोठ्या आरोग्य खर्चापासून संरक्षण"
+      ],
+      "benefitsHindi": [
+        "1.5 लाख तक उपचार कवर",
+        "सूचीबद्ध नेटवर्क में कैशलेस भर्ती",
+        "बड़े स्वास्थ्य खर्च से सुरक्षा"
+      ],
+      "annualBenefitAmount": 150000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "mjpjy_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी",
+          "labelHindi": "महाराष्ट्र का निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "mjpjy_income",
+          "label": "Low to middle-income family",
+          "labelMarathi": "कमी ते मध्यम उत्पन्न कुटुंब",
+          "labelHindi": "कम से मध्यम आय परिवार",
+          "type": "income_max",
+          "params": { "max": 600000 }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Ration card", "Income proof", "Domicile"],
+      "applicationProcess": "Check eligibility at nearest empaneled hospital helpdesk, verify documents, and generate beneficiary card for cashless treatment.",
+      "applyUrl": "https://www.jeevandayee.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "cm_kisan_maha",
+      "name": "CM Kisan Maharashtra",
+      "nameMarathi": "मुख्यमंत्री किसान योजना महाराष्ट्र",
+      "nameHindi": "मुख्यमंत्री किसान योजना महाराष्ट्र",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "farming",
+      "description": "State top-up support for eligible farmers in Maharashtra, often aligned with PM-Kisan beneficiaries. It improves annual farm household liquidity.",
+      "descriptionMarathi": "महाराष्ट्रातील पात्र शेतकऱ्यांसाठी राज्यस्तरीय अतिरिक्त आर्थिक मदत, बहुतेक PM-किसान लाभार्थींना पूरक. वार्षिक शेतकरी रोख प्रवाह वाढतो.",
+      "descriptionHindi": "महाराष्ट्र के पात्र किसानों के लिए राज्य स्तरीय अतिरिक्त वित्तीय सहायता, अक्सर पीएम-किसान के साथ। इससे वार्षिक किसान नकदी प्रवाह बेहतर होता है।",
+      "benefits": [
+        "Additional Rs.6,000 per year support",
+        "Complements PM-Kisan transfers",
+        "Improves input affordability"
+      ],
+      "benefitsMarathi": [
+        "वर्षाला अतिरिक्त 6,000 रुपयांची मदत",
+        "PM-किसान हस्तांतरणास पूरक",
+        "इनपुट खर्च परवडण्यास मदत"
+      ],
+      "benefitsHindi": [
+        "सालाना अतिरिक्त 6,000 रुपये सहायता",
+        "पीएम-किसान हस्तांतरण का पूरक",
+        "इनपुट लागत वहन में सहायता"
+      ],
+      "annualBenefitAmount": 6000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "cmkisan_state",
+          "label": "Resident farmer of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी शेतकरी",
+          "labelHindi": "महाराष्ट्र का निवासी किसान",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "cmkisan_occ",
+          "label": "Occupation is farmer",
+          "labelMarathi": "व्यवसाय शेतकरी",
+          "labelHindi": "पेशा किसान",
+          "type": "occupation",
+          "params": { "values": ["farmer"] }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Land records", "Bank details", "PM-Kisan ID (if any)"],
+      "applicationProcess": "Register through state agriculture portal or local office, verify land records, and receive direct transfers.",
+      "applyUrl": "https://krishi.maharashtra.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "rgjay",
+      "name": "Rajiv Gandhi Jeevandayee Arogya Yojana",
+      "nameMarathi": "राजीव गांधी जीवनदायी आरोग्य योजना",
+      "nameHindi": "राजीव गांधी जीवनदायी आरोग्य योजना",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "health",
+      "description": "Legacy public health protection program in Maharashtra covering major treatments for eligible families. It reduces out-of-pocket burden for severe illnesses.",
+      "descriptionMarathi": "महाराष्ट्रातील पात्र कुटुंबांसाठी मोठ्या उपचारांचे कव्हर देणारी आरोग्य संरक्षण योजना. गंभीर आजारांसाठी स्वतःचा खर्च कमी होतो.",
+      "descriptionHindi": "महाराष्ट्र में पात्र परिवारों के लिए प्रमुख उपचारों का कवर देने वाली स्वास्थ्य सुरक्षा योजना। गंभीर बीमारी में जेब से खर्च कम होता है।",
+      "benefits": [
+        "Cashless package-based treatment support",
+        "Support for serious surgeries and procedures",
+        "Reduced catastrophic medical expenses"
+      ],
+      "benefitsMarathi": [
+        "पॅकेज आधारित कॅशलेस उपचार मदत",
+        "गंभीर शस्त्रक्रिया/उपचारांसाठी सहाय्य",
+        "मोठा वैद्यकीय खर्च कमी"
+      ],
+      "benefitsHindi": [
+        "पैकेज आधारित कैशलेस उपचार सहायता",
+        "गंभीर सर्जरी/प्रक्रियाओं के लिए सहयोग",
+        "उच्च चिकित्सा खर्च में कमी"
+      ],
+      "annualBenefitAmount": 100000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "rgjay_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी",
+          "labelHindi": "महाराष्ट्र का निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "rgjay_income",
+          "label": "Family falls under notified eligibility list",
+          "labelMarathi": "कुटुंब अधिसूचित पात्रता यादीत आहे",
+          "labelHindi": "परिवार अधिसूचित पात्रता सूची में है",
+          "type": "income_max",
+          "params": { "max": 600000 }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Ration card", "Eligibility card", "Domicile"],
+      "applicationProcess": "Visit empaneled hospital desk, verify entitlement, and complete pre-authorization for covered procedure.",
+      "applyUrl": "https://www.jeevandayee.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    },
+    {
+      "id": "sanjay_gandhi_niradhar",
+      "name": "Sanjay Gandhi Niradhar Anudan",
+      "nameMarathi": "संजय गांधी निराधार अनुदान योजना",
+      "nameHindi": "संजय गांधी निराधार अनुदान योजना",
+      "type": "state",
+      "state": "maharashtra",
+      "category": "social",
+      "description": "Social assistance pension support for vulnerable individuals and families with no reliable earning member. It helps with basic monthly livelihood support.",
+      "descriptionMarathi": "विश्वसनीय कमावता सदस्य नसलेल्या असुरक्षित व्यक्ती/कुटुंबांसाठी सामाजिक अनुदान पेन्शन. मूलभूत मासिक उपजीविकेस मदत होते.",
+      "descriptionHindi": "विश्वसनीय कमाने वाले सदस्य के बिना कमजोर व्यक्तियों/परिवारों के लिए सामाजिक सहायता पेंशन। यह बुनियादी मासिक आजीविका में मदद करती है।",
+      "benefits": [
+        "Monthly pension support",
+        "Social safety net for vulnerable groups",
+        "Helps meet essential expenses"
+      ],
+      "benefitsMarathi": [
+        "मासिक पेन्शन मदत",
+        "असुरक्षित घटकांसाठी सामाजिक सुरक्षा जाळे",
+        "मूलभूत खर्च भागवण्यास मदत"
+      ],
+      "benefitsHindi": [
+        "मासिक पेंशन सहायता",
+        "कमजोर वर्गों के लिए सामाजिक सुरक्षा जाल",
+        "आवश्यक खर्च पूरे करने में मदद"
+      ],
+      "annualBenefitAmount": 18000,
+      "eligibilityCriteria": [
+        {
+          "criteriaId": "sgn_state",
+          "label": "Resident of Maharashtra",
+          "labelMarathi": "महाराष्ट्रातील रहिवासी",
+          "labelHindi": "महाराष्ट्र का निवासी",
+          "type": "state",
+          "params": { "value": "maharashtra" }
+        },
+        {
+          "criteriaId": "sgn_income",
+          "label": "Low-income vulnerable household",
+          "labelMarathi": "कमी उत्पन्न असुरक्षित कुटुंब",
+          "labelHindi": "कम आय वाला कमजोर परिवार",
+          "type": "income_max",
+          "params": { "max": 150000 }
+        },
+        {
+          "criteriaId": "sgn_vulnerable",
+          "label": "Vulnerable category (widow, disabled, destitute, etc.)",
+          "labelMarathi": "असुरक्षित श्रेणी (विधवा, दिव्यांग, निराधार इ.)",
+          "labelHindi": "कमजोर श्रेणी (विधवा, दिव्यांग, निराश्रित आदि)",
+          "type": "soft_requirement",
+          "params": { "field": "isVulnerableCitizen", "equals": true, "tip": "Obtain local authority certificate for vulnerable category proof." }
+        }
+      ],
+      "documentsRequired": ["Aadhaar", "Income certificate", "Vulnerability certificate", "Bank account"],
+      "applicationProcess": "Apply at Tehsil/social welfare office or official portal with category proof and bank details for DBT activation.",
+      "applyUrl": "https://sjsa.maharashtra.gov.in/",
+      "deadline": "rolling",
+      "rbiCircularRef": "N/A",
+      "lastUpdated": "2026-03-16"
+    }
+  ]
+}
