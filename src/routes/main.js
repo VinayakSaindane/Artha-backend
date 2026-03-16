@@ -84,7 +84,62 @@ router.post('/goals', auth, async (req, res) => {
 
 router.post('/goals/plan', auth, async (req, res) => {
     try {
-        const plan = await aiService.planGoals(req.body);
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+
+        const recentExpenses = await Expense.find({
+            user_id: req.user._id,
+            date: { $gte: sixMonthsAgo }
+        }).lean();
+
+        const monthlyBuckets = recentExpenses.reduce((acc, row) => {
+            const d = new Date(row.date);
+            const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            acc[key] = (acc[key] || 0) + (row.amount || 0);
+            return acc;
+        }, {});
+
+        const monthlyTotals = Object.values(monthlyBuckets);
+        const averageMonthlyExpenses = monthlyTotals.length
+            ? monthlyTotals.reduce((sum, value) => sum + value, 0) / monthlyTotals.length
+            : 0;
+
+        const existingGoals = await Goal.find({ user_id: req.user._id }).lean();
+        const today = new Date();
+        const activeGoalCommitment = existingGoals.reduce((sum, goal) => {
+            const pendingAmount = Math.max(0, (goal.target_amount || 0) - (goal.current_amount || 0));
+            if (!pendingAmount) return sum;
+
+            if (!goal.deadline) {
+                return sum + (pendingAmount / 24);
+            }
+
+            const deadline = new Date(goal.deadline);
+            const monthsLeft = Math.max(
+                1,
+                (deadline.getFullYear() - today.getFullYear()) * 12 + (deadline.getMonth() - today.getMonth())
+            );
+            return sum + (pendingAmount / monthsLeft);
+        }, 0);
+
+        const income = req.body.income || req.user.monthly_income || 50000;
+        const fallbackSavings = Math.max(0, (income - averageMonthlyExpenses) * Math.max(1, monthlyTotals.length));
+
+        const payload = {
+            ...req.body,
+            income,
+            monthly_expenses: req.body.monthly_expenses || Math.round(averageMonthlyExpenses),
+            existing_emis: req.body.existing_emis || req.user.existing_emis || 0,
+            current_savings: req.body.current_savings || Math.round(fallbackSavings),
+            goal_commitment: Math.round(activeGoalCommitment),
+            source_metrics: {
+                monthly_average_expenses: Math.round(averageMonthlyExpenses),
+                months_covered: monthlyTotals.length,
+                active_goals: existingGoals.length
+            }
+        };
+
+        const plan = await aiService.planGoals(payload);
         res.send(plan);
     } catch (error) {
         res.status(500).send(error);

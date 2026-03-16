@@ -16,6 +16,21 @@ const upload = multer({
     }
 });
 
+const buildUserContext = (user) => ({
+    name: user?.name || '',
+    age: user?.age || 0,
+    occupation: user?.occupation || '',
+    monthly_income: user?.monthly_income || 0,
+    annual_income: user?.annual_income || 0,
+    existing_emis: user?.existing_emis || 0,
+    cibil_score: user?.cibil_score || 0,
+    state: user?.state || '',
+    city: user?.city || '',
+    marital_status: user?.marital_status || '',
+    is_vulnerable_citizen: Boolean(user?.is_vulnerable_citizen),
+    preferred_language: user?.preferred_language || '',
+});
+
 // Analyze Agreement
 router.post('/analyze', auth, upload.single('file'), async (req, res) => {
     try {
@@ -34,7 +49,7 @@ router.post('/analyze', auth, upload.single('file'), async (req, res) => {
             return res.status(400).send({ error: "No text or file provided" });
         }
 
-        const analysis = await aiService.analyzeAgreement(text);
+        const analysis = await aiService.analyzeAgreement(text, buildUserContext(req.user));
 
         const agreement = new Agreement({
             user_id: req.user._id,

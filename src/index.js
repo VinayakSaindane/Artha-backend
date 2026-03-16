@@ -11,6 +11,9 @@ const mainRoutes = require('./routes/main');
 const festivalRoutes = require('./routes/festival');
 const limitsRoutes = require('./routes/limits');
 const aiIntelligenceRoutes = require('./routes/ai-intelligence');
+const { schemesRouter } = require('./routes/schemes');
+const { getSchemesDb } = require('../lib/schemesStore');
+const userRoutes = require('./routes/user');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -24,6 +27,15 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((err) => console.error('MongoDB Connection Error:', err));
 
+// Validate schemes dataset on startup
+try {
+    const schemesDb = getSchemesDb();
+    console.log(`Schemes DB loaded. Version ${schemesDb.version}, items: ${schemesDb.schemes.length}`);
+} catch (error) {
+    console.error('Failed to load schemes DB:', error.message);
+    process.exit(1);
+}
+
 // Routes
 const incomeRoutes = require('./routes/income');
 
@@ -34,6 +46,8 @@ app.use('/api/shield', shieldRoutes);
 app.use('/api/festival', festivalRoutes);
 app.use('/api/limits', limitsRoutes);
 app.use('/api/ai', aiIntelligenceRoutes);
+app.use('/api/schemes', schemesRouter);
+app.use('/api/user', userRoutes);
 app.use('/api', mainRoutes); // Handles /score and /pulse and /goals
 
 // Base Route

@@ -14,6 +14,10 @@ const festivalSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    target_amount: {
+        type: Number,
+        default: 0
+    },
     status: {
         type: String,
         enum: ['PLANNING', 'SAVING', 'COMPLETED'],
