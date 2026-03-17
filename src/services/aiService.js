@@ -230,14 +230,73 @@ const getMockResponse = (feature, data) => {
         { month: 9, savings: 168000, net_worth: 455000, debt_ratio: 43, risk_level: "High" },
         { month: 12, savings: 154500, net_worth: 434000, debt_ratio: 45, risk_level: "High" }
       ],
+      scenario_context: {
+        title: "War Escalation",
+        headline: "War escalation would raise inflation pressure and hit portfolio stability quickly.",
+        description: "Expect import-led inflation, higher household costs, and weaker market confidence over the next few months.",
+        impact_window_months: 12,
+        drivers: {
+          income_change_pct: 0,
+          monthly_inflation_pct: 1,
+          emi_growth_pct: 0.2,
+          market_drawdown_pct: 12,
+          macro_risk_score: 66,
+        },
+      },
+      personal_financial_impact: {
+        portfolio_impact: "-15.0%",
+        monthly_expense_increase: "₹3,500",
+        new_debt_ratio: "45.0%",
+        financial_risk_level: "High",
+        ending_savings: 154500,
+        ending_net_worth: 434000,
+      },
+      recommended_actions: [
+        "Increase emergency cash and keep at least 2 months of core expenses highly liquid",
+        "Trim exposure to highly volatile equities until headline risk cools",
+        "Lock essential monthly spending categories and review fuel and food inflation weekly",
+        "Reduce EMI pressure before debt ratio crosses deeper stress territory",
+      ],
       summary: {
         ending_savings: 154500,
         ending_net_worth: 434000,
         peak_debt_ratio: 45,
-        risk_level: "High"
+        risk_level: "High",
+        headline: "War escalation would raise inflation pressure and hit portfolio stability quickly.",
       }
     }
   };
+  if (feature === 'macroSimulation') {
+    const scenario = String(data?.scenario || mocks.macroSimulation.scenario).toLowerCase();
+    const baseChart = [
+      { name: "Market Volatility", score: 72 },
+      { name: "Inflation Trend", score: 61 },
+      { name: "Geopolitical Risk", score: 75 },
+      { name: "Economic Sentiment", score: 48 }
+    ];
+
+    const adjusted = baseChart.map((row) => ({ ...row }));
+    if (scenario.includes('recession')) {
+      adjusted[0].score = 78;
+      adjusted[3].score = 64;
+    } else if (scenario.includes('job loss')) {
+      adjusted[3].score = 72;
+      adjusted[1].score = 57;
+    } else if (scenario.includes('interest') || scenario.includes('rate')) {
+      adjusted[1].score = 74;
+      adjusted[0].score = 69;
+    } else if (scenario.includes('market crash')) {
+      adjusted[0].score = 86;
+      adjusted[3].score = 59;
+    }
+
+    return {
+      ...mocks.macroSimulation,
+      scenario: data?.scenario || mocks.macroSimulation.scenario,
+      macro_risk_chart: adjusted,
+    };
+  }
+
   return mocks[feature] || {};
 };
 

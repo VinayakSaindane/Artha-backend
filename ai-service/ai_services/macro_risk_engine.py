@@ -351,6 +351,7 @@ class MacroRiskEngineService:
         investments = max(0.0, float(user.get("investments") or 0.0))
 
         macro_score = float(alert.get("macro_risk_index", {}).get("score") or 45.0)
+        baseline_net_worth = max(0.0, savings + investments)
 
         monthly_income_drop = 0.0
         monthly_inflation = 0.006
@@ -412,18 +413,205 @@ class MacroRiskEngineService:
                 }
             )
 
+        first_month = chart_data[0]
+        final_month = chart_data[-1]
+        initial_expense_shock = max(0.0, first_month["expenses"] - expenses)
+        net_worth_change_pct = 0.0
+        if baseline_net_worth > 0:
+            net_worth_change_pct = ((final_month["net_worth"] - baseline_net_worth) / baseline_net_worth) * 100.0
+
+        scenario_context = self._scenario_context(
+            scenario=scenario,
+            macro_score=macro_score,
+            monthly_income_drop=monthly_income_drop,
+            monthly_inflation=monthly_inflation,
+            emi_growth=emi_growth,
+            market_drawdown=market_drawdown,
+            horizon_months=horizon_months,
+        )
+
         return {
             "scenario": scenario,
             "horizon_months": horizon_months,
             "projection_formula": "Surplus(t) = Income(t) - EMI(t) - Expenses(t)",
             "chart_data": chart_data,
+            "macro_risk_chart": self._scenario_macro_risk_chart(
+                alert=alert,
+                scenario=scenario,
+                scenario_context=scenario_context,
+            ),
+            "scenario_context": scenario_context,
+            "personal_financial_impact": {
+                "portfolio_impact": f"{net_worth_change_pct:+.1f}%",
+                "monthly_expense_increase": f"₹{round(initial_expense_shock):,.0f}",
+                "new_debt_ratio": f"{final_month['debt_ratio']:.1f}%",
+                "financial_risk_level": final_month["risk_level"],
+                "ending_savings": round(final_month["savings"], 2),
+                "ending_net_worth": round(final_month["net_worth"], 2),
+            },
+            "recommended_actions": self._scenario_recommendations(
+                scenario=scenario,
+                final_month=final_month,
+                horizon_months=horizon_months,
+            ),
             "summary": {
-                "ending_savings": round(chart_data[-1]["savings"], 2),
-                "ending_net_worth": round(chart_data[-1]["net_worth"], 2),
+                "ending_savings": round(final_month["savings"], 2),
+                "ending_net_worth": round(final_month["net_worth"], 2),
                 "peak_debt_ratio": round(max(point["debt_ratio"] for point in chart_data), 2),
-                "risk_level": chart_data[-1]["risk_level"],
+                "risk_level": final_month["risk_level"],
+                "headline": scenario_context["headline"],
             },
         }
+
+    def _scenario_context(
+        self,
+        scenario: str,
+        macro_score: float,
+        monthly_income_drop: float,
+        monthly_inflation: float,
+        emi_growth: float,
+        market_drawdown: float,
+        horizon_months: int,
+    ) -> dict[str, Any]:
+        scenario_key = scenario.lower().strip()
+        title = scenario.replace("-", " ").title()
+
+        headline = "Macro stress test shows manageable pressure on cash flow."
+        description = "Track savings, expenses, and EMI sensitivity each month while the scenario unfolds."
+
+        if "war" in scenario_key:
+            headline = "War escalation would raise inflation pressure and hit portfolio stability quickly."
+            description = "Expect import-led inflation, higher household costs, and weaker market confidence over the next few months."
+        elif "recession" in scenario_key:
+            headline = "A long recession would compress income growth and drag net worth steadily lower."
+            description = "Cash flow resilience becomes the main defense as income softens and markets stay under pressure."
+        elif "job loss" in scenario_key:
+            headline = "Temporary job loss creates an immediate liquidity shock and rapidly increases financial stress."
+            description = "Savings runway matters more than returns when income disappears for several months."
+        elif "interest" in scenario_key or "rate" in scenario_key:
+            headline = "Rate hikes would raise EMI burden and reduce monthly surplus over time."
+            description = "Debt servicing pressure compounds gradually, especially for floating-rate loans."
+        elif "market crash" in scenario_key:
+            headline = "A market crash would cut portfolio value first, then pressure overall net worth."
+            description = "The main risk is capital drawdown, with household cash flow staying comparatively more stable."
+
+        return {
+            "title": title,
+            "headline": headline,
+            "description": description,
+            "impact_window_months": horizon_months,
+            "drivers": {
+                "income_change_pct": round(-(monthly_income_drop * 100.0), 2),
+                "monthly_inflation_pct": round(monthly_inflation * 100.0, 2),
+                "emi_growth_pct": round(emi_growth * 100.0, 2),
+                "market_drawdown_pct": round(market_drawdown * 100.0, 2),
+                "macro_risk_score": round(macro_score, 2),
+            },
+        }
+
+    def _scenario_recommendations(
+        self,
+        scenario: str,
+        final_month: dict[str, Any],
+        horizon_months: int,
+    ) -> list[str]:
+        scenario_key = scenario.lower().strip()
+        actions: list[str] = []
+
+        if "war" in scenario_key:
+            actions.extend([
+                "Increase emergency cash and keep at least 2 months of core expenses highly liquid",
+                "Trim exposure to highly volatile equities until headline risk cools",
+                "Lock essential monthly spending categories and review fuel and food inflation weekly",
+            ])
+        elif "recession" in scenario_key:
+            actions.extend([
+                "Preserve cash flow by pausing optional big-ticket spending for this stress window",
+                "Build a wider income buffer and keep resume or freelance options active",
+                "Prioritize debt payments that improve monthly surplus fastest",
+            ])
+        elif "job loss" in scenario_key:
+            actions.extend([
+                "Shift immediately to survival-budget mode and stop discretionary auto-debits",
+                "Protect at least 4 to 6 months of essential cash runway before any investing top-ups",
+                "Contact lenders early if EMI stress may emerge within the next 60 days",
+            ])
+        elif "interest" in scenario_key or "rate" in scenario_key:
+            actions.extend([
+                "Prepay high-rate debt where possible to offset rising EMI pressure",
+                "Avoid new floating-rate borrowing during the rate-hike period",
+                "Refinance or rebalance liabilities if your lender offers lower fixed-rate options",
+            ])
+        elif "market crash" in scenario_key:
+            actions.extend([
+                "Avoid panic-selling long-term assets during the first drawdown phase",
+                "Keep fresh investments staggered instead of lump-sum deployment",
+                "Separate emergency cash from market-linked holdings so liquidity stays intact",
+            ])
+        else:
+            actions.extend([
+                "Review surplus and fixed obligations every month of the scenario window",
+                "Move any avoidable discretionary spend into emergency reserves",
+            ])
+
+        if float(final_month.get("debt_ratio") or 0.0) >= 40.0:
+            actions.append("Reduce EMI pressure before debt ratio crosses deeper stress territory")
+
+        if float(final_month.get("savings") or 0.0) <= 0.0:
+            actions.append(f"Current plan exhausts savings within {horizon_months} months; add liquidity or cut fixed costs now")
+
+        deduped: list[str] = []
+        for item in actions:
+            if item not in deduped:
+                deduped.append(item)
+
+        return deduped[:5]
+
+    def _scenario_macro_risk_chart(
+        self,
+        alert: dict[str, Any],
+        scenario: str,
+        scenario_context: dict[str, Any],
+    ) -> list[dict[str, Any]]:
+        base_formula = alert.get("macro_risk_index", {}).get("formula", {})
+        drivers = scenario_context.get("drivers", {})
+        scenario_key = scenario.lower().strip()
+
+        market_volatility = float(base_formula.get("market_volatility") or 40.0)
+        inflation_trend = float(base_formula.get("inflation_trend") or 45.0)
+        geopolitical_risk = float(base_formula.get("geopolitical_risk") or 35.0)
+        economic_sentiment = float(base_formula.get("economic_sentiment") or 40.0)
+
+        market_drawdown = float(drivers.get("market_drawdown_pct") or 0.0)
+        monthly_inflation = float(drivers.get("monthly_inflation_pct") or 0.0)
+        income_change = abs(float(drivers.get("income_change_pct") or 0.0))
+
+        market_volatility += market_drawdown * 0.65
+        inflation_trend += monthly_inflation * 7.0
+        economic_sentiment += income_change * 1.1
+
+        if "war" in scenario_key:
+            geopolitical_risk += 14.0
+            market_volatility += 8.0
+        elif "recession" in scenario_key:
+            economic_sentiment += 12.0
+            market_volatility += 7.0
+        elif "job loss" in scenario_key:
+            economic_sentiment += 15.0
+        elif "interest" in scenario_key or "rate" in scenario_key:
+            inflation_trend += 6.0
+        elif "market crash" in scenario_key:
+            market_volatility += 14.0
+
+        def clamp(value: float) -> float:
+            return round(max(0.0, min(100.0, value)), 2)
+
+        return [
+            {"name": "Market Volatility", "score": clamp(market_volatility)},
+            {"name": "Inflation Trend", "score": clamp(inflation_trend)},
+            {"name": "Geopolitical Risk", "score": clamp(geopolitical_risk)},
+            {"name": "Economic Sentiment", "score": clamp(economic_sentiment)},
+        ]
 
     async def _load_user_financials(self, user_id: str | None, overrides: dict[str, Any] | None = None) -> dict[str, Any]:
         overrides = overrides or {}
