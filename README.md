@@ -74,6 +74,77 @@ FastAPI routes (`/ai/*`, x-api-key protected):
 
 ---
 
+## ☁️ Deploy Live On Render (Recommended)
+
+This repo now includes a Render Blueprint file: `render.yaml`.
+
+### What To Consider Before Going Live
+
+1. Service split
+   - Deploy **2 web services**: Node API (`artha-backend-api`) and Python AI service (`artha-ai-service`).
+
+2. Internal auth between services
+   - Use the same `AI_SERVICE_API_KEY` value in both services.
+
+3. Correct service URL wiring
+   - Set Node's `PYTHON_AI_URL` to your live Python service URL:
+     - Example: `https://artha-ai-service.onrender.com`
+
+4. Database reliability
+   - Use MongoDB Atlas (or another managed MongoDB).
+   - Add Render egress IPs to Atlas network access, or allow `0.0.0.0/0` only if you understand the security tradeoff.
+
+5. Cold starts and timeouts (especially on free plans)
+   - AI endpoints may be slower after inactivity.
+   - Consider paid plan for lower latency and more stable uptime.
+
+6. Secrets and environment variables
+   - Never hardcode secrets in code.
+   - Configure all secrets in Render dashboard environment settings.
+
+7. CORS and frontend URL
+   - Restrict CORS in production to your frontend domain(s) instead of wildcard (`*`) when you are ready to harden security.
+
+### Render Deployment Steps
+
+1. Push this repo to GitHub.
+
+2. In Render, click **New +** -> **Blueprint**.
+
+3. Connect the GitHub repo and select this project.
+   - Render will detect `render.yaml` and propose creating both services.
+
+4. Set required env vars in Render before first deploy:
+   - For `artha-ai-service`:
+     - `MONGODB_URI`
+     - `AI_SERVICE_API_KEY`
+     - Optional: `NEWS_API_KEY`, `ALPHA_VANTAGE_API_KEY`
+   - For `artha-backend-api`:
+     - `MONGODB_URI`
+     - `JWT_SECRET`
+     - `AI_SERVICE_API_KEY` (must match AI service)
+     - `PYTHON_AI_URL` (Python service live URL)
+
+5. Deploy services.
+
+6. Verify health checks:
+   - Node API: `GET /`
+   - Python AI: `GET /health`
+
+7. Test AI path end-to-end:
+   - Call a Node AI route such as `POST /api/ai/risk-radar`.
+   - Confirm it returns real AI output (not fallback mock data).
+
+### Post-Deploy Quick Validation
+
+1. Node service root responds with status 200.
+2. Python service `/health` returns `status: ok` or `status: degraded` with JSON.
+3. Node logs do not show repeated `Python service fallback` warnings.
+4. JWT auth-protected routes work with your frontend token.
+5. MongoDB reads/writes work from both services.
+
+---
+
 ## 🛠️ Setup & Installation
 
 ### Backend `.env`
@@ -168,10 +239,3 @@ MAX_UPLOAD_MB=5
 
 ---
 *Developed with Node.js expertise for ARTH.*
-
-
-lsof -ti :8000 | xargs kill -9
-
-cd /Users/vinayaksaindane/Desktop/fintech-artha/ai-service
-source ../.venv/bin/activate
-uvicorn app.main:app --host 0.0.0.0 --port 8010

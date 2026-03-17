@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: artha-ai-service
+    runtime: python
+    rootDir: ai-service
+    plan: free
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: PYTHONPATH=. uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: artha
+      - key: MONGO_TLS_MODE
+        value: auto
+      - key: AI_SERVICE_API_KEY
+        sync: false
+      - key: CACHE_TTL_SECONDS
+        value: "300"
+      - key: MAX_UPLOAD_MB
+        value: "5"
+      - key: NEWS_API_KEY
+        sync: false
+      - key: ALPHA_VANTAGE_API_KEY
+        sync: false
+
+  - type: web
+    name: artha-backend-api
+    runtime: node
+    rootDir: .
+    plan: free
+    autoDeploy: true
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PYTHON_AI_URL
+        sync: false
+      - key: AI_SERVICE_API_KEY
+        sync: false
